@@ -1,0 +1,19 @@
+/**
+ * Cloudflare Workers static-assets config. Serves the Vite build from
+ * app/dist. The build command runs on Cloudflare's build container (set in
+ * the dashboard: Workers & Pages → jac-market-analysis → Settings → Build).
+ *
+ * Dashboard build settings to match this config:
+ *   Build command:    npm run build
+ *   Deploy command:   (leave default / npx wrangler deploy)
+ *   Root directory:   /   (repo root)
+ */
+{
+  "$schema": "https://unpkg.com/wrangler/config-schema.json",
+  "name": "jac-market-analysis",
+  "compatibility_date": "2026-08-14",
+  "assets": {
+    "directory": "./app/dist",
+    "not_found_handling": "single-page-application"
+  }
+}
