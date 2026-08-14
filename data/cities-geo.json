@@ -1,0 +1,56 @@
+{
+  "metros": {
+    "orlando": {
+      "label": "Orlando (Central Florida)",
+      "anchor": {
+        "name": "JAC Builders — Orlando office (downtown placeholder)",
+        "lat": 28.5384,
+        "lng": -81.3789,
+        "note": "Swap in the real office lat/lng in this file to re-center distance calcs."
+      },
+      "dma_location_name": "Orlando,Florida,United States",
+      "cities": [
+        { "name": "Orlando",            "lat": 28.5384, "lng": -81.3789 },
+        { "name": "Winter Park",        "lat": 28.5999, "lng": -81.3392 },
+        { "name": "Winter Garden",      "lat": 28.5652, "lng": -81.5867 },
+        { "name": "Ocoee",              "lat": 28.5694, "lng": -81.5439 },
+        { "name": "Apopka",             "lat": 28.6934, "lng": -81.5323 },
+        { "name": "Altamonte Springs",  "lat": 28.6611, "lng": -81.3656 },
+        { "name": "Sanford",            "lat": 28.8005, "lng": -81.2731 },
+        { "name": "Kissimmee",          "lat": 28.2919, "lng": -81.4076 },
+        { "name": "St Cloud",           "lat": 28.2489, "lng": -81.2812 },
+        { "name": "Clermont",           "lat": 28.5494, "lng": -81.7728 },
+        { "name": "Eustis",             "lat": 28.8527, "lng": -81.6853 },
+        { "name": "Leesburg",           "lat": 28.8106, "lng": -81.8778 },
+        { "name": "Winter Haven",       "lat": 28.0222, "lng": -81.7328 },
+        { "name": "Lakeland",           "lat": 28.0395, "lng": -81.9498 }
+      ]
+    },
+    "tampa": {
+      "label": "Tampa Bay (Gulf Coast)",
+      "anchor": {
+        "name": "JAC Builders — Tampa office (downtown placeholder)",
+        "lat": 27.9506,
+        "lng": -82.4572,
+        "note": "Swap in the real office lat/lng in this file to re-center distance calcs."
+      },
+      "dma_location_name": "Tampa,Florida,United States",
+      "cities": [
+        { "name": "Tampa",              "lat": 27.9506, "lng": -82.4572 },
+        { "name": "St Petersburg",      "lat": 27.7676, "lng": -82.6403 },
+        { "name": "Clearwater",         "lat": 27.9659, "lng": -82.8001 },
+        { "name": "Largo",              "lat": 27.9095, "lng": -82.7873 },
+        { "name": "Brandon",            "lat": 27.9378, "lng": -82.2859 },
+        { "name": "Riverview",          "lat": 27.8661, "lng": -82.3265 },
+        { "name": "Plant City",         "lat": 28.0186, "lng": -82.1148 },
+        { "name": "Wesley Chapel",      "lat": 28.2394, "lng": -82.3273 },
+        { "name": "Land O Lakes",       "lat": 28.2189, "lng": -82.4534 },
+        { "name": "New Port Richey",    "lat": 28.2442, "lng": -82.7192 },
+        { "name": "Spring Hill",        "lat": 28.4783, "lng": -82.5232 },
+        { "name": "Palmetto",           "lat": 27.5214, "lng": -82.5723 },
+        { "name": "Bradenton",          "lat": 27.4989, "lng": -82.5748 },
+        { "name": "Sarasota",           "lat": 27.3364, "lng": -82.5307 }
+      ]
+    }
+  }
+}

@@ -1,0 +1,21 @@
+.DS_Store
+node_modules/
+
+# Local raw API pulls — machine-generated, never commit
+data/raw/
+data/raw-pulls.json
+
+# Local npm CA workaround (path is user-specific; would break CF Pages build)
+.npmrc
+
+# Build output
+app/dist/
+
+# Env
+.env
+.env.local
+
+# Keep the data files the dashboard actually reads:
+# - data/cities-geo.json (hand-maintained; committed by default)
+# - data/dashboard-data.json (pipeline output; committed so CF Pages can build)
+# - app/public/dashboard-data.json (copy Vite bundles; committed for the build)
