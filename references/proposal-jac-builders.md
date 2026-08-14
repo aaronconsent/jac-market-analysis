@@ -3,243 +3,238 @@
 **Prepared for:** Sean and the JAC leadership team
 **Prepared by:** Hey Aaron! Marketing
 **Date:** August 14, 2026
-**Goal:** Predictable, growing lead flow across both metros at the lowest defensible cost per lead — sequenced so the cheapest channels carry the load and the expensive ones only fill the gap.
+**Version:** 2 (conservative — accounts for 2 months of stalled LSA effort)
+
+**Goal:** Predictable, growing lead flow across both metros using Google Search Ads as the primary paid channel, with a parallel workstream continuing to fight for Local Services Ads / the new Performance Max pay-per-lead model as *possible* upside — not as a planned dependency.
 
 ---
 
 ## Executive summary
 
-JAC Builders sits in two very different competitive positions.
+We've spent two months working to unstick JAC's Local Services Ads and it has not produced meaningful lead flow. That is our starting reality. **This plan does not assume LSA gets fixed.**
 
-**Tampa Bay** — JAC's review moat (285 reviews at 4.9★) already exceeds the local top-3 median of 134. If Local Services Ads (LSA / Google Verified) aren't producing leads today, the cause is almost certainly an **administrative issue** in the LSA account — a paused badge, a policy flag, a payment problem, or a mislink between the Google Business Profile and the LSA listing. Fix that and Tampa becomes JAC's cheapest lead source: **$80–150 per LSA lead** (industry pay-per-lead benchmark for roofing) vs. **$475+ per Google Search lead** (our conservative estimate for the same metro).
+Instead, the base plan funds **Google Search Ads** as the workhorse channel in both metros, priced at the full non-branded auction rate (JAC pays $475–675 per lead, depending on metro, at conservative assumptions). Our team continues in parallel to (1) troubleshoot the existing LSA accounts through the escalation path and (2) prepare JAC for Google's new **Performance Max pay-per-lead** campaign type (the "New Method" that's replacing LSA through late 2026 / 2027). If either produces working lead flow at the industry benchmark ($80–150 per lead for roofing), the blended CPL drops meaningfully. If neither ever does, the plan still holds — JAC just pays full Google Search Ads pricing throughout.
 
-**Orlando (Central Florida)** — JAC is at 145 reviews vs. an entrenched top-3 median of **572 reviews** (Gravity Roofing, Thomas Roofing & Repair, Honest Abe Roofing). Closing that review gap is a 2-to-3 quarter project of sustained review velocity. In the meantime, **paid Google Search Ads** carry the lead volume — at a higher CPL than Tampa LSA, but at a defensible one given the market fundamentals.
+**What that means, month 12:**
+- **Base case (Search Ads only, LSA stays broken):** ~25–45 leads/month at a blended $280–420 CPL, ~$10–14K/month ad spend
+- **Upside case (LSA or PMax pay-per-lead comes online at some point in 2026-27):** ~40–80 leads/month at $180–280 blended CPL for similar ad spend
+- **12-month total, base case:** ~200–400 leads on $100–140K ad spend, blended $300–500 CPL
 
-**The 12-month plan below** stages the channels in this order:
-1. **Tampa LSA fix** in month 1 (near-zero incremental spend, unlocks a $100-ish CPL channel)
-2. **Orlando Google Search** launch in month 1 (carries Orlando's volume immediately)
-3. **Review-generation system in both metros** (near-zero cost, closes Orlando's moat)
-4. **Meta retargeting** added in month 4 (small budget, cheap incremental leads)
-5. **Orlando LSA activation** as the review gap closes in months 7–9
-
-At steady state (months 10–12), we project **~100–160 leads/month** at a blended **$110–150 CPL** on **$10–15K/month** of ad spend. First-quarter blended CPL will run higher ($200–300) while the account learns and Orlando reviews build — this is expected and priced into the plan.
+We are conservative on these numbers deliberately. Roofing paid search in saturated FL metros has more variance and more unexpected roadblocks than most trades. The plan assumes the fixes get harder before they get easier.
 
 ---
 
-## The opportunity
+## What we've learned from 2 months of LSA effort
 
-### Market demand (Google Ads keyword data, 30-mile service radius)
+Before proposing, we want to be direct about what the last two months have taught us:
 
-| Metro | Cities in radius | Core monthly searches | With long-tail (7×) | Realistic capturable clicks/mo |
+1. **This is not an "administrative fix" scenario.** Simple causes (unaccepted terms banner, declined payment, expired license, obvious badge issue) would have been resolved by now. Whatever is blocking Tampa LSA is more likely a **policy-, entity-, or GBP-link-level issue** that requires escalation to Google's Tier-2 support and can take weeks per round.
+2. **The PMax pay-per-lead migration is not a guaranteed reset.** Google's transition explicitly carries lead history, verification status, and account settings forward from the legacy LSA account into the new PMax campaign. If the underlying issue is at the account/entity level, the new campaign type inherits it. It's a *possible* reset, not a definite one.
+3. **The industry-benchmark LSA CPL ($80–150) only applies once the account is actually serving.** JAC is not near that today. Reserving budget against those numbers would be irresponsible.
+4. **Search Ads carry the plan.** Google Search Ads is a mature, well-instrumented, reliable channel we know we can turn on in week 1 and predict CPL for. That's the workhorse.
+
+---
+
+## The opportunity (Google Ads keyword data, DataForSEO — August 2026)
+
+### Market demand — 30-mile radius per metro
+
+| Metro | Cities in radius | Core monthly searches | With long-tail | Realistic capturable clicks/mo |
 |---|---|---|---|---|
-| **Tampa Bay** | 10 | 5,700 | ~42,800 | ~830 clicks |
-| **Orlando (Central FL)** | 11 | 4,540 | ~32,400 | ~640 clicks |
+| **Tampa Bay** | 10 | 5,700 | ~42,800 | ~640 clicks *(30% IS × 5% CTR)* |
+| **Orlando (Central FL)** | 11 | 4,540 | ~32,400 | ~485 clicks *(30% IS × 5% CTR)* |
 
-*Assumes 40% impression share × 5% CTR at conservative settings — see appendix for benchmarks.*
+Both metros have plenty of demand. **The bottleneck is CPC × CVR, not searches.**
 
-Both metros have more than enough demand to support the 100+ leads/month target. The market is not the bottleneck. **Cost per click and CVR are.**
+### Non-branded Search CPC & CPL
 
-### Competitive position (Google Business Profile pull, August 2026)
-
-**Tampa Bay top-3 across the four money queries** *("roofing contractor Tampa," "roof repair Tampa," "roofer near me," "roofing Tampa")*
-
-| Rank in market | Business | Reviews | Rating |
-|---|---|---|---|
-| Outlier giant | Westfall Roofing | 1,900 | 4.8★ |
-| Frequent #1 | Prime Roof Repair Tampa | 134 | 4.9★ |
-| Frequent top-3 | Stay Dry Roofing of Tampa Bay | 204 | 4.5★ |
-| Frequent top-3 | Tampa Roof Repair LLC | 178 | 4.9★ |
-| Frequent top-3 | Red Fox Roofers of Tampa | 63 | 5.0★ |
-| Frequent top-3 | Native Sons Roofing | 111 | 5.0★ |
-| **JAC Builders, INC.** | **285** | **4.9★** | ← Ahead of the field |
-
-**Read:** Aside from Westfall (a regional giant JAC won't unseat this year), JAC has more reviews and equal-or-better rating than every other top-3 competitor. **JAC belongs in the top-3 for the majority of Tampa money queries today.** If LSA isn't delivering it, we have an administrative fix to make.
-
-**Orlando top-3 across the four money queries**
-
-| Rank in market | Business | Reviews | Rating |
-|---|---|---|---|
-| Frequent #1 | Gravity Roofing | 572 | 5.0★ |
-| Frequent #2 | Thomas Roofing & Repair | 613 | 4.8★ |
-| Frequent top-3 | Honest Abe Roofing Orlando | 343 | 4.9★ |
-| Occasional | New Standard Roofing Orlando | 82 | 5.0★ |
-| Occasional | Top Builder Roofing LLC | 113 | 5.0★ |
-| **JAC Builders of Orlando** | **145** | **5.0★** | ← Currently outside top-3 |
-
-**Read:** Orlando is a **saturated market with three deeply established incumbents** — all at 340–613 reviews with years of lead history. JAC's 145 reviews at 5.0★ is a strong foundation, but closing to competitive review moat is a sustained multi-quarter project. **Paid Search — not LSA — carries Orlando for the next two-to-three quarters.**
-
-### Cost per click and cost per lead (Google Ads suggested bids, DataForSEO, August 2026)
-
-| Metro | CPC at position 3–4 | CPC at position #1 | Est. CPL at position 3–4 |
+| Metro | CPC @ position 3–4 | CPC @ position #1 | Est. CPL @ position 3–4 |
 |---|---|---|---|
 | **Tampa Bay** | $27 | $94 | ~$675 |
 | **Orlando** | $19 | $63 | ~$475 |
 
-CPL assumes 4% click-to-lead conversion (conservative — home services median). Position 3–4 is the "smart" position where CPC and volume balance; owning #1 roughly triples cost per lead with only modest volume gain. **We recommend position 3–4 as the default posture** — see the roadblocks section for when to consider #1.
+CPL assumes **3% click-to-lead conversion for the first 90 days** (before landing-page optimization) and 4% thereafter. Home-services median CVR is 3.7%; roofing sits at the low end because the decision requires trust proofs (portfolio, insurance, referrals). We stay conservative.
 
-For comparison, **LSA pay-per-lead runs $80–150 in roofing** — 4–7× cheaper than Search when it works. This is why the strategy prioritizes fixing Tampa LSA first.
+We recommend **position 3–4 as the default posture** in both metros. Owning #1 on head terms roughly triples CPC for a modest volume gain and pushes CPL past $1,500 in Tampa — bad economics unless the auction is soft. Revisit only when conversion actuals prove justification.
+
+### Competitive position
+
+**Tampa Bay** — JAC Builders, INC.: **285 reviews at 4.9★**. Local pack top-3 median: **134**. On paper JAC has the review moat. The barrier is not competition — it's whatever is blocking the LSA account today. Google Search Ads runs regardless of LSA state.
+
+**Orlando** — JAC Builders of Orlando: **145 reviews at 5.0★**. Local pack top-3 median: **572** (Gravity Roofing 572, Thomas Roofing & Repair 613, Honest Abe Roofing 343). A 3.9× review gap against three entrenched incumbents. Orlando is a **paid-Search market** for the next 12+ months regardless of LSA. Reviews should be built anyway (organic + LSA option value) but nothing hinges on closing that gap this year.
 
 ---
 
 ## Recommended channel strategy
 
-Priority order — cheapest per lead first, sequenced by readiness:
+Sequenced in the order we deploy them. **Google Search Ads is the only channel we financially plan around; everything else is opportunistic.**
 
-| # | Channel | Metro | Typical CPL | Ready when |
-|---|---|---|---|---|
-| 1 | **Google Business Profile (organic)** | Both | ~$0 (reviews + response time drive it) | Always on |
-| 2 | **Local Services Ads (Google Verified)** | Tampa | $80–150 | LSA admin fix + review moat achieved (Tampa: ready) |
-| 3 | **Local Services Ads (Google Verified)** | Orlando | $80–150 | Review gap < 3× top-3 median (Orlando: months 7–9) |
-| 4 | **Google Search Ads — branded** | Both | $5–15 | Any brand searches exist (nearly always) |
-| 5 | **Google Search Ads — non-branded roofing** | Orlando primary, Tampa secondary | $300–675 (improves with account maturity) | Landing page + conversion tracking wired |
-| 6 | **Meta retargeting** | Both | $30–100 | Website tracking pixel installed + 60 days of Search traffic |
-| 7 | **Google Performance Max** | Both | Variable (test) | 3+ months of Search baseline established |
-| 8 | **Meta prospecting** | Both | $50–120 | After PMax evaluated — often not needed at target volumes |
+| Priority | Channel | Metro | Role | Typical CPL | Certainty |
+|---|---|---|---|---|---|
+| 1 | **Google Search Ads (branded)** | Both | Capture existing brand demand — cheap, high intent | $10–25 | High |
+| 2 | **Google Search Ads (non-branded roofing)** | Both | The workhorse — carries the plan's lead volume | $400–675 first 90d, $300–500 thereafter | High |
+| 3 | **Google Business Profile organic + review generation** | Both | Feeds LSA option value + organic map-pack leads | ~$0 (operational cost) | Medium — depends on JAC's ask-at-completion discipline |
+| 4 | **LSA / Google Verified troubleshooting** *(existing, parallel)* | Both, Tampa priority | Fight to unstick current accounts via Tier-2 support | $80–150/lead IF it ever serves | **Low — 2 months in and not producing** |
+| 5 | **Performance Max pay-per-lead (New Method)** | Both, as Google migrates JAC's account | Prepare + test aggressively when JAC's account migrates | $80–150/lead if it works | Unknown — depends on whether migration resolves underlying LSA issue |
+| 6 | **Meta retargeting** | Both | Cheap incremental leads from prior website visitors | $80–150 | Medium — small volume |
+| 7 | **Google Performance Max (standard, not pay-per-lead)** | Both | Test after 3 months of Search baseline for auction lift | Variable | Medium — worth testing, not counting on |
+| 8 | **Meta prospecting** | Both | Only if #1–7 miss volume goals | $100–200 | Low priority |
 
-**Rationale for this order:** every step below LSA is 2–7× more expensive per lead. The plan structurally weights toward LSA and organic — the *cheap* channels — and uses paid Search only where LSA cannot yet deliver (Orlando now, both metros as backup).
-
----
-
-## Month-by-month plan (first 12 months)
-
-All figures are ranges. Ad-spend numbers exclude our management retainer. Lead volumes assume competent execution of the review + answer-rate program (see roadblocks).
-
-| Month | Focus | Ad spend | Est. leads | Blended CPL |
-|---|---|---:|---:|---:|
-| **M1** | Tampa LSA admin fix · Orlando Search launch · GBP + review-ask + answering-coverage stand-up · conversion tracking | $2K–4K | 8–20 | $200–500 |
-| **M2** | Tampa LSA lead flow begins · Orlando Search dial-in · first review-generation reporting | $4K–7K | 25–45 | $155–280 |
-| **M3** | Scale winners · lead-hygiene routine in place · monthly competitor benchmark | $6K–10K | 40–70 | $145–250 |
-| **M4** | Add Meta retargeting · Orlando Search account maturing (CPL trending down) | $8K–12K | 55–90 | $135–220 |
-| **M5–6** | Optimize + expand keywords · Orlando review count crosses 200 · re-test Orlando LSA visibility | $10K–14K | 75–130 | $115–190 |
-| **M7–9** | Activate Orlando LSA · slowly rebalance budget from Orlando Search → Orlando LSA · Tampa steady-state | $10K–15K | 95–170 | $95–160 |
-| **M10–12** | Steady-state · Orlando LSA scaling · both metros LSA-primary + Search-supplementary · Meta ongoing | $10K–15K | 110–190 | $85–140 |
-
-**Twelve-month totals (midpoint of ranges):** ~$100K–150K ad spend, **~900–1,400 leads**, blended **$110–140 CPL**.
-
-**Read the trajectory, not the month numbers:** the plan compounds. Month 1 CPL is high because the account is learning and Orlando doesn't have LSA yet. By month 4 the blended cost drops as Tampa LSA carries increasing weight. By month 10, Orlando LSA joins and pushes the blended cost below $150.
-
-If JAC's target is a specific monthly lead volume rather than "as many as possible for the least," we tune the mix — e.g. capping Orlando Search spend once the LSA channel takes over.
+**What we do NOT put in the plan:**
+- Shared lead marketplaces (Angi, HomeAdvisor, Networx) — expensive per booked-job, shared with 3–5 competitors, poor JAC brand fit.
+- Aggressive display / YouTube prospecting for a lead-gen roofer — untested economics for this trade.
 
 ---
 
-## Major milestones (measurable, dated)
+## Month-by-month plan — BASE CASE (Google Search Ads only)
+
+This is what JAC should budget against. If LSA or PMax pay-per-lead comes online during the plan (see upside case below), it augments — but nothing in this table depends on it working.
+
+| Month | Focus | Ad spend | Est. leads | Blended CPL | Notes |
+|---|---|---:|---:|---:|---|
+| **M1** | Setup: tracking, conversion mapping, branded + non-branded Search live, landing pages audited, LSA escalation continues | $3K–5K | 3–8 | $500–800 | Setup churn is normal; measure baseline CVR |
+| **M2** | Search Ads dial-in (Quality Score work, negative keywords, ad copy tests) | $6K–9K | 10–20 | $400–650 | Non-branded starts landing predictably |
+| **M3** | Landing-page CVR project (target: get from 3% → 4%) | $8K–11K | 15–28 | $350–550 | Landing-page work compounds every following month |
+| **M4** | Add Meta retargeting to site visitors; branded Search cranked up | $9K–13K | 18–32 | $320–500 | Retargeting adds 3–8 cheap leads/mo |
+| **M5–6** | Expand keyword base, test broader match with tight audiences, budget scaling | $10K–14K | 22–40 | $300–470 | Search account matures; CPC settles below suggested bids |
+| **M7–9** | If JAC's account migrates to PMax pay-per-lead: aggressive testing; otherwise steady state | $10K–14K | 25–45 | $280–450 | New Method tests are opportunistic — no lead volume dependency |
+| **M10–12** | Steady state; annual review; contingency budget for storm-season variance | $10K–14K | 25–45 | $280–420 | Blended CPL floor probably $280–300 in base case |
+
+**12-month base-case totals:** ~$110K–140K ad spend, **200–350 leads**, blended **$300–500 CPL**.
+
+**Interpret the ranges honestly:** the low end of each range assumes we hit conservative CVR (3–4%) and no unexpected roadblocks. The high end assumes ~30% variance from unexpected issues (landing page CVR stuck at 3%, storm-season CPC spikes, account learning delays, seasonal demand dips, an unexpected policy audit, etc.). Roofing paid search in FL has this much variance. We prefer to price it in up front.
+
+### Upside case (if LSA or PMax pay-per-lead ever produces leads at benchmark)
+
+Not a promise. A contingency. If in some month the LSA account (Tampa first, since JAC's review moat is there) or the new PMax pay-per-lead campaign starts serving at industry-benchmark $80–150/lead:
+
+- **Add 15–40 leads/mo per unlocked metro** at ~$100 blended CPL
+- **Blended plan CPL drops toward $180–280** (from the base $300–500)
+- **Total 12-month leads shift toward 400–650** (from base 200–350)
+
+We report this monthly. The base plan does not depend on it landing.
+
+---
+
+## Milestones (measurable, dated)
 
 **Month 1 — Foundation**
-- Week 1: LSA account audit complete for both metros. Tampa serving issues identified.
-- Week 2: Tampa LSA fix verified (impressions returning, badge active).
-- Week 2: Orlando Google Search account launched, conversion tracking live and firing.
-- Week 3: Review-generation system deployed (at-job-completion ask flow) at both offices.
-- Week 4: Answering coverage confirmed — 2+ phones or after-hours service, ≥95% answer rate target.
-
-**Month 2 — First measurable outputs**
-- Tampa averages ≥10 LSA leads/week.
-- Orlando Search hits predicted ~$475 CPL band on non-branded roofing keywords.
-- +4–8 new GBP reviews landed per metro.
+- Week 1: Google Ads Standard-level manager access granted; conversion tracking + call tracking live and firing.
+- Week 1: Baseline audit of both LSA accounts + both GBPs completed. Tier-2 support escalation filed with case numbers.
+- Week 2: Branded + non-branded Search campaigns live in Orlando. Tampa non-branded Search launches in parallel (LSA is not blocking Search).
+- Week 3: Landing-page CVR baseline measured (target: measure real, not assume).
+- Week 4: First lead reports out; review-generation ask flow deployed at both offices.
 
 **Month 3 — Rhythm established**
-- Monthly competitor benchmark process in place; JAC's provider-list position for the 4 tracked queries per metro is measured.
-- Answer rate ≥95% verified across both metros.
-- First disposition-tagged leads flowing into Google Ads Lead Manager (post-migration) or LSA lead history.
+- Landing-page CVR ≥ 4% verified (from baseline).
+- Answer rate ≥ 95% on all lead calls, verified via call-tracking records.
+- Both metros' Search Ads producing consistent lead flow within the projected CPL band.
+- Monthly LSA / New Method status update: still stuck, or progressing? Documented for JAC.
 
 **Month 6 — Efficiency threshold**
-- Blended CPL crosses below $200 for the first time.
-- Orlando review count reaches 200+ (up from 145).
-- Meta retargeting delivering incremental leads at $80–120 CPL.
+- Blended Search CPL crossed $400 downward for the first time.
+- Meta retargeting delivering 4–10 leads/mo at sub-$150 CPL.
+- Orlando review count 190+ (from 145). Not a plan dependency; done for LSA option value.
+- Contingency budget check: what did we spend on unexpected roadbumps this half? Adjust remainder accordingly.
 
-**Month 9 — Orlando activation**
-- Orlando LSA first leads produced.
-- Orlando review count 250+ (moat gap ~2× or better).
-- Blended CPL below $150.
+**Month 9 — New Method decision point**
+- JAC's account either has migrated to PMax pay-per-lead or is imminent. Test aggressively if migrated.
+- LSA escalation: 3+ months of Tier-2 engagement — decision point on whether to keep pursuing or accept that channel is dead for this account.
+- Landing-page v2 (from month-3 lessons) deployed if warranted.
 
-**Month 12 — Steady state**
-- ~100–160 leads/month sustained.
-- Blended CPL $110–140.
-- Orlando LSA producing ≥30% of Orlando's leads.
-- Migration to Google Ads PMax pay-per-lead completed cleanly (historical LSA reports archived pre-migration).
+**Month 12 — Annual review**
+- Steady-state performance report: actual CPL vs projected, actual leads vs projected, unexpected roadblocks encountered, dollars spent on troubleshooting vs producing.
+- LSA / PMax pay-per-lead status: producing, still stuck, or officially deprioritized?
+- 2027 plan revision.
 
 ---
 
 ## Roadblocks & how we mitigate them
 
-| Roadblock | Impact if it happens | Mitigation |
-|---|---|---|
-| **Missed calls / slow message response** | LSA algorithm demotes JAC — 90s+ message responses saw 30–50% impression-share drops in 2026 testing. Kills the cheapest channel first. | Answering-service or shared-phone rotation contract in place BEFORE turning on lead flow. Weekly answer-rate audit. |
-| **Review velocity doesn't materialize** | Orlando's moat never closes → paid Search remains the primary channel → blended CPL stays $200+ instead of dropping to $110. | Systematized ask at job completion, tied to invoice/payment step. Weekly review-count report. Escalate to owner if velocity slips 2+ weeks. |
-| **LSA verification / policy issue in Tampa** | Tampa LSA stays throttled or paused → cheapest channel unavailable → whole plan slides right. | Week 1 audit of the LSA dashboard; escalation to LSA support 1-833-272-1444 with case number if unresolved after ~7 business days. |
-| **Landing page CVR under 3%** | CPL calculations assume 4% click-to-lead conversion (already conservative). Sub-3% doubles the CPL. | Baseline CVR measurement in month 1. If < 3%, dedicated landing-page refresh in month 2 — usually recovers 2–3 percentage points. |
-| **Crew capacity ceiling** | Once lead volume > jobs JAC can quote / deliver in a week, customer experience drops, reviews suffer, LSA demotes. Compounds bad. | Weekly leads-vs-capacity check. Cap ad budget if lead flow exceeds JAC's ability to speak-to-lead within 2 hours. |
-| **Storm season variance** | Spring / hurricane season doubles demand AND competition. CPC can spike 40–70%. Rankings churn. | Budget headroom baked into months 3–8 (peak storm season in FL). Don't judge account performance during storm weeks. |
-| **LSA → PMax migration mid-plan** | Google is folding LSA into Google Ads Performance Max pay-per-lead through late 2026 / 2027. Historical LSA reports do NOT transfer. | Export ALL current LSA reports in month 1 (before any 14-day migration notice arrives). Migration itself doesn't change strategy — same billing, same ranking levers. |
-| **Duplicate GBP for the two divisions** | If JAC's Tampa and Orlando offices share a GBP or have duplicates, LSA will misfire. | Month 1 GBP audit; confirm strict 1:1 GBP↔LSA link per metro. Fix duplicates before scaling. |
-| **Tracking not wired** | Attribution guesswork; can't verify CPL claims; optimization stalls. | Google Ads conversion tracking + GA4 event mapping shipped in week 1. Call-tracking (CallRail or equivalent) recommended. |
+| Roadblock | Impact if it happens | Mitigation | Baked into base plan? |
+|---|---|---|---|
+| **LSA never unsticks** (already 2 months in) | No cheap channel unlock — plan runs on Search only for full 12 months | Base plan assumes this. LSA escalation is a background workstream, not a budgeted lead source. | ✅ |
+| **PMax pay-per-lead migration inherits the LSA issue** | JAC's "new" campaign type has the same account-level policy problem | Assume this. If we get New Method working at benchmark, treat it as upside. If not, no plan revision needed. | ✅ |
+| **Landing-page CVR stays at 3%** despite refresh work | CPL 30–40% higher than projected | Month-3 landing-page project explicitly targets improvement; measure before and after with a control. If still stuck at 3% by month 6, deeper CRO project (extra scope). | Partial — month 3 refresh is included; second-pass CRO would be new scope |
+| **Storm season CPC spikes 40–70%** (hurricane season, hail events) | Blended CPL climbs 20–30% for 4–8 weeks | Budget headroom in months 5–8. Do not judge account performance during named-storm weeks. | ✅ (contingency built into ranges) |
+| **Google Ads account learning delays** (2–4 weeks of erratic delivery on new campaigns) | Month 1–2 look worse than plan | Priced in — month 1 CPL band is deliberately wide. | ✅ |
+| **Answer rate drops below 95%** | Google demotes account regardless of channel; Search Quality Score drops | Weekly answer-rate audit; if JAC's team can't hold 95%, insist on answering-service augmentation before scaling ad spend | Partial — requires JAC operational commitment |
+| **Missing conversion tracking** (calls / form fills not attributed) | Blind optimization — we can't tell what's working | Week-1 gate: no ad spend scales until tracking is verified firing | ✅ |
+| **Crew capacity ceiling** — leads > jobs quotable within 2 hours | Speed-to-lead misses tank close rate + LSA future viability | Weekly leads-vs-capacity check; cap ad budget if flow exceeds JAC's speed-to-lead threshold | ✅ — requires JAC input on capacity |
+| **Duplicate / mislinked GBPs** for the two divisions | Complicates LSA + attribution | Month-1 GBP audit included regardless of LSA state | ✅ |
+| **Google Ads dev-token approval delays** for reporting APIs | Slower reporting cadence in month 1 | Manual reports for first 30 days; API automation follows | ✅ |
+| **Sean's team can't sustain review velocity** | Orlando review gap doesn't close → LSA option value never materializes | Not a base-plan dependency. Nice-to-have, not required. | ✅ |
+| **Unexpected roadblocks we haven't anticipated** | Timelines slip, spend re-allocates | ~15% contingency implicit in the CPL/spend ranges. This is why the ranges are wide, not tight. | ✅ |
 
 ---
 
 ## What we need from JAC to execute
 
-**Required to start (month 1):**
-1. **Admin access to JAC's Google Ads account** (Standard-level manager invite to `hello@aaron.chat`).
-2. **Admin access to JAC's LSA / Google Verified accounts** for both metros — or a screenshare in week 1 to run the audit.
-3. **Admin access to JAC's Google Business Profiles** — Tampa + Orlando divisions.
-4. **Website access** for adding conversion tracking + landing pages if needed.
-5. **A dedicated answering solution** — 2+ phones in rotation OR an after-hours service like Nexa/AnswerConnect. This is non-negotiable for LSA to work.
-6. **Confirmation of JAC's operating capacity** — how many roof-project leads/week can JAC comfortably quote and follow up on within 2 hours?
+**Required in week 1:**
+1. **Standard-level manager access to JAC's Google Ads account** (invite to `hello@aaron.chat`).
+2. **Admin access to the LSA / Google Verified accounts** for both metros — or your active login credentials for continued troubleshooting.
+3. **Admin access to JAC's Google Business Profiles** — both divisions.
+4. **Website + landing page access** for conversion tracking installation and eventual page refreshes.
+5. **Call-tracking decision** — CallRail or equivalent ($50–100/mo). Non-negotiable for CPL attribution.
+6. **Answer-rate confirmation** — is JAC currently answering ≥95% of inbound lead calls including after-hours? If not, we spec an answering-service augmentation before scaling spend.
+7. **Crew capacity number** — how many new roof-project leads per week can JAC comfortably quote and speak to within 2 hours?
 
-**Required to sharpen the plan (any time):**
-7. **JAC's current monthly ad spend and channel mix** (if any) — anchors the baseline.
-8. **JAC's target monthly lead volume** — the plan assumes "as many as JAC can absorb"; if the target is different (e.g. exactly 40/month), we cap spend accordingly.
-9. **Average job value + close rate** — lets us shift from CPL to cost-per-booked-revenue in monthly reporting.
-10. **Whether Tampa and Orlando are separate LSA accounts** or one — affects the account-audit path.
+**Required to sharpen the plan (any time in month 1):**
+8. **Current ad spend and channel mix** — anchors what "reallocate" vs "add on top" means.
+9. **Target monthly lead volume** — the plan assumes "as many as JAC can absorb." If Sean has a specific number (e.g. 40/mo), we cap spend accordingly.
+10. **Average job value + close rate** — lets us convert monthly reports from CPL to cost-per-booked-revenue.
+11. **Anything already tried on the LSA account** — support ticket numbers, dates, response summaries. Avoids us duplicating work and helps us go directly to Tier 2.
 
 **Ongoing operational commitments from JAC:**
-11. **Review-ask discipline** at every completed job. Aaron's team can build the flow, but JAC's crews have to run it.
-12. **Weekly 30-minute review call** for the first 90 days; monthly thereafter.
-13. **Lead disposition** — mark each lead as booked / not-booked / spam within 48 hours in the LSA / Google Ads Lead Manager UI. This feeds the algorithm's "good lead" learning.
+12. **Review-ask discipline at every completed job** (targeting 4–8 new GBP reviews/mo per metro — for organic + LSA option value, not base-plan requirement).
+13. **Weekly 30-minute call for the first 90 days**, monthly thereafter.
+14. **Lead disposition within 48 hours** in Google Ads Lead Manager / LSA UI — feeds the algorithm's learning.
 
 ---
 
 ## How we arrived at the numbers
 
-Every projected number in this plan traces to one of five sources. Nothing is invented; where we're extrapolating from industry data instead of JAC's own actuals, we say so.
+Every projected number traces to one of these sources. Where we're extrapolating from industry benchmarks rather than JAC's own actuals, we say so.
 
-### 1. Market demand (searches per month, per city)
-- **Source:** Google Ads' Keyword Planner data, pulled via DataForSEO's `keywords_data/google_ads/search_volume/live` endpoint on August 14, 2026.
-- **Keywords used:** 15 core roofing service terms (roof repair, roof repair near me, roofer near me, roofing contractor, roof replacement, new roof, roof installation, roof leak repair, roof leak, storm damage roof repair, hail damage roof, emergency roof repair, shingle roof repair, tile roof repair, roof inspection).
-- **Cities:** 14 per metro — JAC's actual service areas from the current website + neighboring cities.
-- **Long-tail multiplier:** For each metro, we ran DataForSEO's Google Ads keyword-expansion at the primary city level ("Orlando,Florida,United States" / "Tampa,Florida,United States") to get a bigger keyword universe (60 filtered service-intent terms). The multiplier = (total volume of the 60-term universe) ÷ (total volume of the 15 core terms). Orlando: **7.13×**. Tampa: **7.51×**. Applied to core volumes to estimate true market size including long-tail queries JAC would rank for.
-- **Sanity check:** Both metros' 30-mile core volume (Orlando 4,540 / Tampa 5,700) sit inside the 500–20,000 band we'd expect for a home-services vertical in a saturated FL metro. Passes.
+### 1. Market demand (search volumes)
+- **Source:** Google Ads Keyword Planner via DataForSEO's `keywords_data/google_ads/search_volume/live` endpoint, August 14, 2026.
+- **Keywords:** 15 core roofing service terms (roof repair, roof repair near me, roofer near me, roofing contractor, roof replacement, new roof, roof installation, roof leak repair, roof leak, storm damage roof repair, hail damage roof, emergency roof repair, shingle roof repair, tile roof repair, roof inspection).
+- **Cities:** 14 per metro — JAC's actual service areas + neighboring cities. Distance to each JAC office computed by haversine.
+- **Long-tail multiplier:** DataForSEO keyword expansion at the primary city gave a 60-term filtered service-intent universe. Multiplier = (60-term total volume) ÷ (15 core-term total volume). Orlando: **7.13×**. Tampa: **7.51×**. Applied to core volumes to estimate the true universe of queries JAC would rank for.
+- **Sanity check:** Both metros' 30-mile core volume (Orlando 4,540 / Tampa 5,700) fall inside the 500–20,000 band expected for a home-services vertical in a saturated FL metro.
 
 ### 2. Cost per click
 - **Source:** The same DataForSEO Search Volume pulls return Google Ads' `low_top_of_page_bid` (position 3–4 proxy) and `high_top_of_page_bid` (position #1 proxy) per keyword.
-- **Volume-weighted:** We weight each keyword's suggested bid by its search volume so the blended CPC reflects the *typical* auction, not the most-expensive term.
-- **Result:** Tampa Bay $27 (pos 3–4) / $94 (pos #1). Orlando $19 (pos 3–4) / $63 (pos #1). The position-#1 spread (3–3.5×) is consistent with home-services norms in 2025-26.
-- **Real-world margin:** Google's suggested bids typically settle 10–30% higher than actual winning CPCs for well-run accounts. Our projections use the *suggested* figures — real CPLs will likely improve after 60–90 days of account maturity.
+- **Volume-weighted:** Each keyword's suggested bid is weighted by its search volume, so blended CPC reflects the typical auction, not the priciest term.
+- **Result:** Tampa Bay $27 (pos 3–4) / $94 (pos #1). Orlando $19 (pos 3–4) / $63 (pos #1). Position #1 spread of 3–3.5× is consistent with FL home-services norms.
+- **Real-world margin:** Google's suggested bids typically settle 10–30% higher than winning CPCs for well-run accounts, so real CPCs after 60–90 days of maturity should trend below these figures. We use suggested bids conservatively for planning.
 
-### 3. Cost per lead
+### 3. Cost per lead — Search Ads
 - **Formula:** CPC ÷ CVR (click-to-lead conversion rate).
-- **Conservative CVR:** 4%, sourced from LocaliQ and WordStream 2025 home-services benchmarks — roofing & gutters averages **3.7%** (one of the lowest CVRs in home services because the decision requires trust proofs like portfolios and insurance). We round up to 4% for the plan — anything higher is optimistic without proven landing pages.
-- **Other conservative defaults:** Impression share **40%** (achievable early-stage), CTR **5%** (home-services average 4.8%). Sources in the LSA Diagnostic reference doc.
-- **Result:** Tampa $27 / 4% = **$675 CPL**. Orlando $19 / 4% = **$475 CPL**. Both at position 3–4.
+- **CVR — conservative range:** 3% first 90 days (before landing-page optimization), 4% thereafter. Sources: LocaliQ 2025 home-services benchmarks (roofing & gutters median CVR **3.7%** — one of the lowest in home services because the decision requires trust proofs); WordStream corroborates.
+- **Other conservative defaults:** Impression share **30%** early, rising toward 40% with account maturity (60–80% is aspirational and requires budget headroom we won't have in the first 6 months). CTR **5%** (home services average 4.8%).
+- **Result — first 90 days:** Tampa $27 / 3% = **~$900 CPL**. Orlando $19 / 3% = **~$630 CPL**. **After 90 days at 4% CVR:** Tampa ~$675, Orlando ~$475. Blended over 12 months lands in the plan's $300–500 range as account maturity + landing-page work compound.
 
-### 4. LSA cost per lead
-- **Source:** Agency-community 2024–2026 benchmarks by trade. Roofing sits at **$80–150 per LSA lead** across most saturated U.S. metros. This is *not* Google-published; it's the consensus range observed by ad agencies running roofing LSA campaigns. Directional, worth re-verifying seasonally.
-- **JAC applicability:** Tampa's competitive position (0.5× review gap — JAC ahead of median) suggests JAC should land closer to the lower end of that band ($80–120) once serving is fixed. Orlando, when reactivated, will start in the middle of the band ($100–150) until proximity + lead history further optimize.
+### 4. LSA / Performance Max pay-per-lead CPL (upside case only)
+- **Source:** Agency-community 2024–2026 benchmarks by trade. Roofing sits at **$80–150 per LSA lead** across most saturated U.S. metros when the account is serving. This is not Google-published; it's the consensus range observed by agencies running roofing LSA. Directional, worth seasonal re-verification.
+- **Applicability to JAC:** The base plan **does not use these numbers.** They appear only in the "upside case" if / when the LSA or new PMax pay-per-lead campaign actually starts producing leads for JAC at benchmark.
 
-### 5. Competitive position (review moat)
-- **Source:** DataForSEO's `serp/google/organic/live/advanced` local-pack results for four money queries per metro (roofing contractor / roof repair / roofer near me / roofing), pulled August 14, 2026.
-- **JAC's GBPs:** Verified via DataForSEO's `business_data/google/my_business_info/live` for both divisions. Tampa: JAC Builders, INC. 285 reviews @ 4.9★. Orlando: JAC Builders of Orlando 145 reviews @ 5.0★.
-- **Review moat median:** For each query, we take the top-3 local pack businesses' review counts and compute a median. Then median the four query medians for the metro-level number. Tampa: 134. Orlando: 572.
-- **Review gap:** metro median ÷ JAC's reviews. Tampa: 0.5× (JAC ahead). Orlando: 3.9× (behind, 2-quarter climb per LSA-community benchmark).
+### 5. Competitive position
+- **Source:** DataForSEO's `serp/google/organic/live/advanced` local-pack results for four money queries per metro (roofing contractor / roof repair / roofer near me / roofing), August 14, 2026.
+- **JAC's GBPs verified:** DataForSEO `business_data/google/my_business_info/live` for both divisions. Tampa: JAC Builders, INC. — 285 reviews at 4.9★. Orlando: JAC Builders of Orlando — 145 reviews at 5.0★.
+- **Review moat median:** Top-3 local-pack review counts per query, median across the four queries per metro. Tampa: **134**. Orlando: **572**.
+- **Review gap:** metro median ÷ JAC's reviews. Tampa: **0.5×** (JAC ahead). Orlando: **3.9×** (behind). *Note: this metric is directional. Tampa also has Westfall Roofing at 1,900 reviews as an outlier giant that pulls specific query rankings without moving the median much.*
 
-### 6. Ranking factors (LSA)
-- **Source:** Community consensus 2025–2026 (see the LSA Lead Diagnostic reference doc packaged with this project).
-- **Weight order:** Responsiveness → Reviews (count × velocity × rating) → Proximity → Profile completeness → Lead history / booking outcomes → Bid/budget. Bid is "permission to spend" — not a ranking signal once sufficient.
-- **Implication for plan:** the biggest lever for JAC in month 1 is answer-rate discipline (Roadblock #1); the biggest lever over 6+ months is review velocity. Budget is a small lever compared to these.
+### 6. Ranking factors (LSA / Google Verified)
+- **Source:** Community consensus 2025–2026 (see the LSA Lead Diagnostic reference doc in this project).
+- **Weight order:** Responsiveness → Reviews (count × velocity × rating) → Proximity → Profile completeness → Lead history / booking outcomes → Bid/budget.
+- **Implication for JAC:** Even if the LSA account starts serving tomorrow, ranking requires answer-rate discipline (biggest month-1 lever) and reviews velocity (biggest 6-month lever). Bid is not the lever.
 
 ### 7. What's *not* in this plan (and how we'd get it)
-- **JAC's actual current CPL and lead volume** — we don't have these. Once the account is running and we've measured a month, we replace the industry-benchmark CPL numbers with JAC's actuals.
-- **JAC's actual close rate and job value** — needed to shift monthly reporting from "cost per lead" to "cost per booked job" and eventually "ROI on ad spend." Ask Sean at kickoff.
-- **JAC's LSA account impressions / badge status / historical lead count** — needed to determine whether Tampa is on the Serving Track (admin fix) or Ranking Track (something more). Requires 5 minutes in the LSA dashboard.
+- **JAC's current actual CPL** on any channel — replaces our industry benchmarks after month 1 of measurement.
+- **JAC's actual close rate and job value** — shifts reporting from CPL to cost-per-booked-job to ROI on ad spend.
+- **JAC's landing-page conversion baseline** — measured in week 1. All CPL projections assume 3% → 4% CVR; JAC's actuals may be higher or (more likely for a legacy WordPress site) lower.
+- **The root cause of the LSA account issue** — this comes out of the Tier-2 support engagement, not from us or DataForSEO.
 
 ---
 
@@ -247,14 +242,16 @@ Every projected number in this plan traces to one of five sources. Nothing is in
 
 Numbered so you can reply inline:
 
-1. **Target monthly lead volume**: is JAC targeting a specific number (e.g. 100 leads/mo), or "as many as we can absorb"? This changes budget shape.
-2. **Current ad spend and channels**: what's JAC running today (LSA, Google Search, Meta, LSA agency partner, HomeAdvisor / Angi shared leads, etc.) and roughly what monthly spend?
-3. **Current LSA state (both metros)**: is LSA active? Verified? How many leads in the last 30 days? Are the Tampa and Orlando offices on separate LSA accounts?
-4. **Crew capacity**: how many new roof-project leads per week can JAC comfortably quote and speak to within 2 hours?
-5. **Answering coverage**: does JAC have after-hours phone coverage today, or would we need to add it as part of the plan?
-6. **Landing pages**: is the current jacbuildersfl.com site the intended paid-ads destination, or would JAC want dedicated landing pages per metro / per service?
-7. **Google Business Profile**: any recent NAP (Name / Address / Phone) changes, unclaimed listings, or profile mergers we should know about?
+1. **Target monthly lead volume**: is JAC targeting a specific number (e.g. 40/mo), or "as many as we can absorb"? Shapes the budget curve.
+2. **Current ad spend and channels**: what's JAC running today (Search, Meta, HomeAdvisor / Angi, other agencies)? Roughly what monthly spend?
+3. **LSA troubleshooting history**: what has already been tried on the LSA accounts? Any support ticket numbers or Google reps we can reference?
+4. **Crew capacity**: how many new roof-project leads per week can JAC quote and speak to within 2 hours?
+5. **Answering coverage**: is after-hours phone coverage in place today? If not, this becomes a required add-on before scaling ad spend.
+6. **Landing pages**: is the current jacbuildersfl.com site the intended paid-ads destination? Willing to invest in dedicated metro or service landing pages?
+7. **Google Business Profile status**: any recent NAP changes, unclaimed listings, or profile mergers we should know about?
 8. **Storm-season posture**: does JAC ramp crews for hurricane season? Answer shapes whether we hold budget for the spike or ride it.
+9. **Are Tampa and Orlando separate LSA accounts** or one? (Same for Google Ads accounts.)
+10. **Investment posture on LSA troubleshooting**: are you willing to keep paying for our team's ongoing time on LSA + New Method escalation even if it doesn't produce leads in the plan window? Or should we time-box it and reallocate to Search?
 
 ---
 
@@ -268,7 +265,7 @@ Numbered so you can reply inline:
 | Money-query SERP pulls (8 queries) | `serp/google/organic/live/advanced` | 2026-08-14 | ~$0.04 |
 | **Total DataForSEO cost for this brief** |  |  | **~$3.10** |
 
-Cached responses — a monthly refresh runs at zero additional cost from the same cache; new pulls only when `--fresh` is passed.
+Cached responses — monthly refreshes run at zero additional cost from the same cache; new pulls only when `--fresh` is passed.
 
 ---
 
