@@ -83,18 +83,19 @@ export default function LsaPage() {
   // Auto-populate from data/lsa-data.json when available. User can still edit
   // any field; the "auto" tag next to a field disappears once it's been edited.
   const [autoData, setAutoData] = useState(null);
+  const [marketData, setMarketData] = useState(null);    // for the exec report
   const [autoMetro, setAutoMetro] = useState("tampa");   // toggle which metro's auto data to use
   const [dirty, setDirty] = useState({});               // fields the user has touched
 
   useEffect(() => {
-    // Vite's SPA fallback returns index.html (200 OK) for missing static files,
-    // so guard on JSON content-type — don't try to parse HTML as auto-data.
-    fetch("/lsa-data.json").then(async r => {
-      if (!r.ok) return null;
+    const fetchJson = async (url) => {
+      const r = await fetch(url); if (!r.ok) return null;
       const ct = r.headers.get("content-type") || "";
       if (!ct.includes("json")) return null;
       return r.json();
-    }).then(setAutoData).catch(() => setAutoData(null));
+    };
+    fetchJson("/lsa-data.json").then(setAutoData).catch(() => setAutoData(null));
+    fetchJson("/dashboard-data.json").then(setMarketData).catch(() => setMarketData(null));
   }, []);
 
   useEffect(() => {
@@ -243,8 +244,12 @@ export default function LsaPage() {
           </Row>
 
           <div className="lsa-actions">
-            <button className="primary" onClick={() => copyMarkdown(intake, diagnosis)}>Copy report as markdown</button>
-            <button onClick={() => downloadMarkdown(intake, diagnosis)}>Download .md</button>
+            <button className="primary" onClick={() => copyExec(intake, autoData, marketData, autoMetro)}>Copy executive brief</button>
+            <button onClick={() => downloadExec(intake, autoData, marketData, autoMetro)}>Download .md</button>
+          </div>
+          <div className="lsa-actions-note">
+            Executive brief covers <b>both metros</b> and folds in market data (CPC, CPL, demand) from the Market Analysis page.
+            LSA-account fields (impressions, badge, ad status) reflect what's entered above for the currently-selected metro ({autoMetro[0].toUpperCase() + autoMetro.slice(1)}).
           </div>
         </section>
 
@@ -462,89 +467,232 @@ function renderInlineMd(s) {
     .replace(/\*\*(.+?)\*\*/g, "<b>$1</b>");
 }
 
-function buildMarkdown(intake, diagnosis) {
-  const trackTitle = diagnosis.track === "serving" ? "Serving Track (0 impressions)"
-                   : diagnosis.track === "ranking" ? "Ranking Track (serving but not enough leads)"
-                   : "Track: unknown (fill in impressions)";
-  const areas = (intake.serviceAreas || "").split(/[\n,]+/).map(s => s.trim()).filter(Boolean);
-  const lines = [];
-  lines.push(`# LSA Lead Diagnostic — ${intake.business || "[client]"}`);
-  lines.push("");
-  lines.push(`**Trade:** ${intake.trade}   **Market:** ${intake.marketSize}   **Platform:** ${intake.platform}`);
-  lines.push(`**Service areas:** ${areas.join(", ") || "—"}`);
-  lines.push("");
-  lines.push(`## Diagnosis`);
-  lines.push(`**Track:** ${trackTitle}`);
-  lines.push("");
-  lines.push(`**Most likely causes:**`);
-  diagnosis.topCauses.slice(0, 3).forEach(c => lines.push(`- ${c}`));
-  lines.push("");
-  lines.push(`**Directional CPL band (${intake.trade}):** $${diagnosis.trade.cplLow}–$${diagnosis.trade.cplHigh} per lead — ${diagnosis.trade.note}`);
-  lines.push(`**Market shape:** ${diagnosis.marketNote}`);
-  if (diagnosis.reviewGap != null) lines.push(`**Review gap:** ${diagnosis.reviewGap.toFixed(1)}× top-3 median. ${diagnosis.timeline?.label || ""}`);
-  lines.push("");
-  lines.push(`## Action checklist`);
-  if (diagnosis.track === "serving") {
-    lines.push(`### Serving Track (in order)`);
-    SERVING_TRACK.forEach((s, i) => lines.push(`${i + 1}. ${s}`));
-  } else if (diagnosis.track === "ranking") {
-    lines.push(`### Ranking Track (in order)`);
-    RANKING_TRACK.forEach((s, i) => lines.push(`${i + 1}. ${s}`));
+/* ---------- executive report ---------- */
+
+// Assumption defaults used by the exec brief when live sliders aren't relevant
+// to the report (they belong to the Market page). Kept in sync with MarketPage.
+const EXEC_ASSUMPT = { impressionShare: 40, ctr: 5, cvr: 4 };
+const money = n => (n == null || isNaN(n)) ? "—" : "$" + n.toFixed(n < 10 ? 2 : 0);
+const num = n => (n == null || isNaN(n)) ? "—" : n.toLocaleString(undefined, { maximumFractionDigits: 0 });
+
+// Roll up per-metro business facts from auto/market data + intake state.
+function metroRollup(metroKey, autoData, marketData, intake, currentMetro) {
+  const lsa = autoData?.client?.metros?.[metroKey];
+  const comp = autoData?.money_queries_by_metro?.[metroKey];
+  const market = marketData?.metros?.[metroKey];
+  const reviewGap = (lsa?.review_count && comp?.review_moat_median)
+    ? comp.review_moat_median / lsa.review_count : null;
+
+  // Market inside a 30-mile radius (executive-scale default).
+  let marketScope = null;
+  if (market?.cities?.length) {
+    const inR = market.cities.filter(c => (c.distanceMiles ?? 999) <= 30);
+    const est = inR.reduce((a, c) => a + (c.estimatedTotalVolume || 0), 0);
+    const capturable = est * (EXEC_ASSUMPT.impressionShare / 100) * (EXEC_ASSUMPT.ctr / 100);
+    const leadsMonth = capturable * (EXEC_ASSUMPT.cvr / 100);
+    const cpc34 = market.position34CPC;
+    const cpc1 = market.position1CPC;
+    const cpl34 = cpc34 != null ? cpc34 / (EXEC_ASSUMPT.cvr / 100) : null;
+    const cpl1 = cpc1 != null ? cpc1 / (EXEC_ASSUMPT.cvr / 100) : null;
+    marketScope = { est, capturable, leadsMonth, cpc34, cpc1, cpl34, cpl1, cityCount: inR.length };
   }
+
+  // Track (uses intake fields — only meaningful for the currently-shown metro).
+  const isCurrent = metroKey === currentMetro;
+  const track = isCurrent ? (intake.impressions30d === "" ? "unknown"
+                            : Number(intake.impressions30d) === 0 ? "serving" : "ranking") : null;
+
+  return { key: metroKey, label: metroLabel(metroKey), lsa, comp, market, reviewGap, marketScope, track, isCurrent };
+}
+
+function metroLabel(k) {
+  return k === "orlando" ? "Orlando (Central Florida)"
+       : k === "tampa"   ? "Tampa Bay (Gulf Coast)"
+       : k;
+}
+
+function verdictFor(m) {
+  // Business-language one-line verdict for a metro.
+  if (m.reviewGap == null) {
+    return "Review data pending — verify in the LSA dashboard before deciding.";
+  }
+  if (m.reviewGap < 1) {
+    return `Already ahead of the local top-3 (${m.lsa.review_count} reviews vs. ${m.comp.review_moat_median} top-3 median). If LSA leads aren't flowing, the fix is administrative, not budget.`;
+  }
+  if (m.reviewGap < 3) {
+    return `Within striking distance (${m.reviewGap.toFixed(1)}× review gap). One quarter of sustained review velocity and JAC belongs in the top-3.`;
+  }
+  if (m.reviewGap < 10) {
+    return `Two-quarter climb (${m.reviewGap.toFixed(1)}× review gap). Recommend blending in paid Search to carry lead volume while reviews build.`;
+  }
+  return `Long-horizon rebuild (${m.reviewGap.toFixed(0)}× review gap vs. entrenched incumbents). Six to twelve months of review velocity + paid Search / PMax to stay competitive in the interim.`;
+}
+
+function recommendedActionFor(m, intake) {
+  // Tie business verdict to a concrete first-30-day action.
+  if (m.reviewGap == null) return "Grab impressions / badge status from the LSA dashboard to complete the diagnosis.";
+  if (m.reviewGap < 1) {
+    if (m.isCurrent && m.track === "serving") return "Fix Serving Track: accept terms, verify payment, confirm badge, check GBP↔LSA link. 2–4 hours of admin, no additional spend.";
+    if (m.isCurrent && m.track === "ranking") return "Serving is fine but leads are throttled — likely responsiveness or cold-start. Tighten answer rate to ≥95% and lead-hygiene routine before adding budget.";
+    return "LSA should be top-3 here. If it isn't, first check for a serving / verification issue in the account.";
+  }
+  if (m.reviewGap < 3) return "Systematize review-ask at job completion (target 4–8/month). Run paid Search at position 3–4 to carry volume this quarter.";
+  return "Paid Search is the primary lead source for the next 1–2 quarters. Run a parallel review-generation program (target 6–10 new GBP reviews/month) to close the LSA moat.";
+}
+
+function budgetLine(m) {
+  if (!m.marketScope?.cpl34 || !m.marketScope?.leadsMonth) return "Market data pending.";
+  const cpl = m.marketScope.cpl34;
+  const monthlyLeads = m.marketScope.leadsMonth;
+  const monthlySpend = cpl * monthlyLeads;
+  // Round to sensible band
+  const lo = Math.max(1000, Math.round(monthlySpend * 0.6 / 500) * 500);
+  const hi = Math.round(monthlySpend / 500) * 500;
+  return `Recommended monthly Search budget: **$${lo.toLocaleString()}–$${hi.toLocaleString()}** for ~${Math.round(monthlyLeads * 0.6)}–${Math.round(monthlyLeads)} qualified leads at an estimated ${money(cpl)} CPL.`;
+}
+
+function buildExecutive({ intake, autoData, marketData, currentMetro }) {
+  const metros = (autoData?.client?.metros ? Object.keys(autoData.client.metros) : ["orlando", "tampa"]);
+  const rollups = metros.map(k => metroRollup(k, autoData, marketData, intake, currentMetro));
+  const client = autoData?.client?.name || intake.business || "[client]";
+  const today = new Date().toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+  const lines = [];
+
+  // Header
+  lines.push(`# ${client} — Paid-Ads Readiness Brief`);
+  lines.push(`**Prepared:** ${today}   **Trade:** ${intake.trade}   **Markets:** ${rollups.map(r => r.label).join(" · ")}`);
   lines.push("");
-  lines.push(`### Phased goals`);
-  const phases = [
-    ["Phase A — Maximize auction eligibility (week 1)", [
-      `Bidding: Max Leads / Target-CPA. Budget sized for ~20 leads/week ≈ $${diagnosis.trade.cplLow * 20}–$${diagnosis.trade.cplHigh * 20}/week at benchmark CPL.`,
-      `100% of legitimate job types on; widest truthful hours; message + booking leads ON.`,
-      `Tighten service area to ≤30-min reach; dominate close-proximity first.`,
-      `Complete bio; 4–6 real photos (post-migration: up to 100 photos + 6 callouts per category).`,
-    ]],
-    ["Phase B — Manufacture trust signals (weeks 1–6)", [
-      `Review velocity: 4–8+ new GBP reviews/month; hold 4.7–4.9★; respond to all reviews.`,
-      `100%-answer system BEFORE leads flow (2+ phones or answering service).`,
-      `Lead hygiene: disposition every lead within 48 hrs.`,
-    ]],
-    ["Phase C — Competitive benchmark (week 1, then monthly)", [
-      `Search money queries incognito from inside the area (e.g. "${intake.trade.toLowerCase()} repair ${firstArea(intake.serviceAreas)}").`,
-      `Record top-3 name / rating / review count / badge / responds-in / hours.`,
-      `Track monthly: impression share, provider-list position, top-3 review counts.`,
-    ]],
-    ["Phase D — Verify (rolling)", [
-      `Week 2: impressions trending up? If ~0 → escalate Serving Track.`,
-      `Week 4: first leads? Answer rate ≥95%?`,
-      `Week 8: top-3 for close-proximity queries (the beachhead)?`,
-      `Front-load changes in week 1, then hold — edits trigger re-review and reset learning.`,
-    ]],
-  ];
-  phases.forEach(([title, items]) => {
-    lines.push(`#### ${title}`);
-    items.forEach(it => lines.push(`- ${it}`));
+
+  // BLUF
+  lines.push(`## Bottom line`);
+  lines.push("");
+  rollups.forEach(m => {
+    lines.push(`**${m.label}** — ${verdictFor(m)}`);
+    lines.push("");
   });
+  lines.push(`*Recommendation summary:* ${rollups.map(m => `${m.key === "orlando" ? "Orlando" : "Tampa"}: ${recommendedActionFor(m, intake).split(".")[0]}.`).join(" ")}`);
   lines.push("");
-  lines.push(`## Migration overlay (LSA → Google Ads PMax pay-per-lead)`);
+
+  // Per-metro detail
+  rollups.forEach(m => {
+    lines.push(`---`);
+    lines.push(`## ${m.label}`);
+    lines.push("");
+
+    // The numbers
+    lines.push(`### Where JAC stands`);
+    if (m.lsa?.review_count != null) {
+      lines.push(`- **JAC's Google Business Profile:** ${m.lsa.review_count} reviews at ${m.lsa.rating}★ (${m.lsa.resolved_name || "profile located"}).`);
+    } else {
+      lines.push(`- **JAC's Google Business Profile:** not located — verify the business is listed and claimed.`);
+    }
+    if (m.comp?.review_moat_median != null) {
+      lines.push(`- **Local top-3 review moat (median across money queries):** ${m.comp.review_moat_median} reviews.`);
+      if (m.reviewGap != null) {
+        const dir = m.reviewGap < 1 ? "**ahead** of" : "**behind**";
+        lines.push(`- **Review gap:** JAC is ${dir} the top-3 by ${m.reviewGap.toFixed(1)}× ${m.reviewGap < 1 ? "(strong position)" : "(review-velocity project)"}.`);
+      }
+    }
+    if (m.marketScope) {
+      lines.push(`- **Market demand (30-mile radius):** ~${num(m.marketScope.est)} rooftop-searches per month across ${m.marketScope.cityCount} cities.`);
+      lines.push(`- **Paid Search cost per click:** ${money(m.marketScope.cpc34)} at position 3–4 (${money(m.marketScope.cpc1)} to own #1 on head terms).`);
+      lines.push(`- **Estimated cost per lead:** ${money(m.marketScope.cpl34)} at position 3–4 — ~${Math.round(m.marketScope.leadsMonth)} leads/month achievable inside this radius at default conversion assumptions.`);
+    }
+    if (m.isCurrent && intake.impressions30d !== "") {
+      const impN = Number(intake.impressions30d);
+      lines.push(`- **LSA account state (last 30 days):** ${num(impN)} impressions; badge ${labelize(intake.verified)}; ad status ${labelize(intake.running)}.`);
+      if (m.track === "serving") lines.push(`  → **Serving Track:** the account is not serving. Admin fix required before ranking is even relevant.`);
+      if (m.track === "ranking") lines.push(`  → **Ranking Track:** the account serves but competitors outrank it in the auction.`);
+    } else {
+      lines.push(`- **LSA account state:** pending — needs a JAC LSA-dashboard login to pull impressions / badge / ad status.`);
+    }
+    lines.push("");
+
+    // Recommendation
+    lines.push(`### Recommendation`);
+    lines.push(`> ${recommendedActionFor(m, intake)}`);
+    lines.push("");
+    lines.push(budgetLine(m));
+    lines.push("");
+
+    // Competitor table
+    if (m.comp?.queries?.length) {
+      lines.push(`### Who ranks today`);
+      lines.push(`| Query | #1 | #2 | #3 |`);
+      lines.push(`|---|---|---|---|`);
+      m.comp.queries.forEach(q => {
+        const cell = (row) => row ? `${row.name || "—"} (${row.review_count ?? "—"} ★${row.rating ?? "—"})` : "—";
+        lines.push(`| "${q.query}" | ${cell(q.top3[0])} | ${cell(q.top3[1])} | ${cell(q.top3[2])} |`);
+      });
+      lines.push("");
+    }
+  });
+
+  // 30 / 60 / 90-day plan
+  lines.push(`---`);
+  lines.push(`## 30 / 60 / 90-day plan`);
+  lines.push("");
+  lines.push(`### First 30 days`);
+  rollups.forEach(m => lines.push(`- **${m.label}:** ${recommendedActionFor(m, intake)}`));
+  lines.push(`- **Both metros — review-generation system:** systematize the review-ask at job completion; target 4–8 new Google reviews per month per metro; respond to every review within 48 hours.`);
+  lines.push(`- **Both metros — answer-rate coverage:** ensure ≥95% answer rate on all lead calls; missed calls demote the account faster than they cost the immediate lead.`);
+  lines.push("");
+  lines.push(`### 30–90 days`);
+  lines.push(`- Monthly competitor benchmark — re-run this brief's money-query check; watch top-3 review counts + JAC's provider-list position.`);
+  lines.push(`- Weekly lead hygiene — disposition every lead within 48 hours (booked / completed / archived w/ reason).`);
+  lines.push(`- If Tampa fix succeeds, evaluate raising Tampa LSA budget; if Orlando reviews reach ≥250, re-test LSA visibility.`);
+  lines.push("");
+  lines.push(`### 90–180 days`);
+  lines.push(`- **Migration prep (see below):** LSA is folding into Google Ads Performance Max pay-per-lead through late 2026 / 2027. Historical LSA reports do NOT transfer — export them now.`);
+  lines.push(`- Re-evaluate Orlando LSA once review gap is < 3×; scale Search / PMax budget to demand.`);
+  lines.push("");
+
+  // Assumptions & caveats
+  lines.push(`---`);
+  lines.push(`## Assumptions & honest caveats`);
+  lines.push(`- **Market CPC/CPL figures** are Google Ads' suggested top-of-page bids blended by search volume across the metro, pulled from DataForSEO. Real auction CPCs typically settle 10–30% below suggested for well-run accounts. JAC's actuals may vary 20–30%.`);
+  lines.push(`- **Conversion defaults** used in the CPL math: ${EXEC_ASSUMPT.impressionShare}% impression share, ${EXEC_ASSUMPT.ctr}% CTR, ${EXEC_ASSUMPT.cvr}% click-to-lead conversion. These sit at the conservative end of published 2025-26 roofing benchmarks; a mature account with strong landing pages can beat them meaningfully.`);
+  lines.push(`- **Review moat** is the median top-3 review count across four money queries per metro. A single dominant incumbent (e.g. Westfall Roofing in Tampa at 1,900 reviews) can pull individual query rankings without moving the median much — the moat is directional, not a hard ceiling.`);
+  lines.push(`- **Ranking-factor weight order for LSA** (community consensus, 2025-26): responsiveness → reviews (count × velocity × rating) → proximity → profile completeness → lead history → bid/budget. Bid is permission to spend, not a ranking signal once sufficient.`);
+  lines.push(`- **Timelines are honest, not aspirational.** No one promises top-3 in 30 days in a saturated market. Ranges above assume competent execution of the review + answer-rate program.`);
+  lines.push("");
+
+  // Migration overlay
+  lines.push(`---`);
+  lines.push(`## LSA platform migration (2026–2027)`);
+  lines.push(`Google is folding Local Services Ads into Google Ads as a specialized Performance Max campaign type with pay-per-lead bidding. First wave: August 2026 (select U.S. home & storefront services), broader U.S. groups late 2026, non-U.S. + remaining categories in 2027. Nothing about the strategy above changes — same ranking levers, same billing model — but two operational items matter:`);
+  lines.push("");
   MIGRATION_ITEMS.forEach(m => lines.push(`- ${m}`));
   lines.push("");
+
   lines.push(`---`);
-  lines.push(`Generated ${new Date().toLocaleDateString()} from the JAC market-analysis dashboard.`);
+  lines.push(`*Prepared by Hey Aaron! Marketing. Data pulled ${autoData ? new Date(autoData.generated_at).toLocaleDateString() : "—"}; market data pulled ${marketData ? new Date(marketData.generated_at).toLocaleDateString() : "—"}. Total DataForSEO cost for this brief: $${((autoData?.total_cost_usd || 0) + 3).toFixed(2)} (one-time — cached).*`);
   return lines.join("\n");
 }
 
-function copyMarkdown(intake, diagnosis) {
-  const md = buildMarkdown(intake, diagnosis);
+function labelize(v) {
+  const m = { yes: "active", no: "not verified / dropped", pending: "pending review",
+              running: "running", paused: "paused", limited: "limited-serving flag",
+              legacy: "legacy LSA dashboard", migrated: "migrated to Google Ads", unsure: "unknown" };
+  return m[v] || v;
+}
+
+function copyExec(intake, autoData, marketData, currentMetro) {
+  const md = buildExecutive({ intake, autoData, marketData, currentMetro });
   navigator.clipboard.writeText(md).then(
-    () => alert("Report copied as markdown."),
+    () => alert("Executive brief copied to clipboard as markdown."),
     () => alert("Copy failed — use Download instead."),
   );
 }
 
-function downloadMarkdown(intake, diagnosis) {
-  const md = buildMarkdown(intake, diagnosis);
+function downloadExec(intake, autoData, marketData, currentMetro) {
+  const md = buildExecutive({ intake, autoData, marketData, currentMetro });
   const blob = new Blob([md], { type: "text/markdown" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
+  const name = (autoData?.client?.name || intake.business || "client").toLowerCase().replace(/\s+/g, "-");
   a.href = url;
-  a.download = `lsa-diagnostic-${(intake.business || "client").toLowerCase().replace(/\s+/g, "-")}.md`;
+  a.download = `${name}-paid-ads-brief-${new Date().toISOString().slice(0,10)}.md`;
   document.body.appendChild(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
