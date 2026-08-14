@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-14T13:55:29.136Z",
+  "generated_at": "2026-08-14T14:04:56.142Z",
   "metros": {
     "orlando": {
       "label": "Orlando (Central Florida)",
@@ -218,26 +218,28 @@
         },
         {
           "name": "St Cloud",
+          "coreVolume": 300,
+          "weightedCPC": 80.94500000000001,
+          "highTopBid": 95.19,
+          "lowTopBid": 15.25,
+          "seasonalIndex": [
+            0.684,
+            0.776,
+            0.629,
+            0.836,
+            0.564,
+            0.901,
+            1.037,
+            1.424,
+            2.122,
+            1.419,
+            1.226,
+            0.382
+          ],
           "lat": 28.2489,
           "lng": -81.2812,
           "distanceMiles": 20.87,
-          "coreVolume": 0,
-          "weightedCPC": null,
-          "seasonalIndex": [
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1
-          ],
-          "estimated": true
+          "estimatedTotalVolume": 2139
         },
         {
           "name": "Clermont",
@@ -408,26 +410,28 @@
         },
         {
           "name": "Riverview",
+          "coreVolume": 420,
+          "weightedCPC": 50.42034482758621,
+          "highTopBid": 58.9025,
+          "lowTopBid": 22.1375,
+          "seasonalIndex": [
+            1.672,
+            1.932,
+            1.056,
+            0.753,
+            0.636,
+            0.499,
+            0.917,
+            0.778,
+            2.345,
+            0.711,
+            0.271,
+            0.431
+          ],
           "lat": 27.8661,
           "lng": -82.3265,
           "distanceMiles": 9.89,
-          "coreVolume": 0,
-          "weightedCPC": null,
-          "seasonalIndex": [
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1
-          ],
-          "estimated": true
+          "estimatedTotalVolume": 3154
         },
         {
           "name": "Brandon",
@@ -456,26 +460,28 @@
         },
         {
           "name": "St Petersburg",
+          "coreVolume": 580,
+          "weightedCPC": 39.1695238095238,
+          "highTopBid": 87.90368421052632,
+          "lowTopBid": 27.8928947368421,
+          "seasonalIndex": [
+            1.012,
+            0.786,
+            1.24,
+            0.853,
+            0.813,
+            0.614,
+            1.107,
+            1.295,
+            2.166,
+            0.849,
+            0.421,
+            0.845
+          ],
           "lat": 27.7676,
           "lng": -82.6403,
           "distanceMiles": 16.88,
-          "coreVolume": 0,
-          "weightedCPC": null,
-          "seasonalIndex": [
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1
-          ],
-          "estimated": true
+          "estimatedTotalVolume": 4356
         },
         {
           "name": "Land O Lakes",
