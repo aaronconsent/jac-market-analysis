@@ -54,19 +54,35 @@ npm run process
 Commit the updated `data/dashboard-data.json` (it's the only file the app
 reads at runtime) and redeploy.
 
-## What each assumption slider means
+## Assumption defaults (conservative, sourced)
 
-| Slider | Default | Why that default |
-|---|---:|---|
-| Service radius | 15 mi | Typical single-crew service radius; sweep 5–50 to see the reach curve. |
-| Impression share | 65% | Achievable with sustained bidding + healthy Quality Score in mid-competitive local markets. |
-| Click-through rate | 13% | Local-services Search benchmark for the top 3 positions with good ad copy. |
-| Conversion rate (click → lead) | 13% | Home-services Search Ads industry median (WordStream/Google benchmarks). Range 8–20% covers laggards through best-in-class landing pages. |
-| Booking rate (lead → job) | 60% | Roofing outbound speed-to-lead + sales-close typical band 40–80%. |
-| Position strategy | Smart 3–4 | Position #1 on "near me" head terms roughly doubles CPC vs positions 3–4; the toggle lets you A/B the cost per booked job. |
+Defaults are set to the **conservative side** of published 2025-26 roofing /
+home-services benchmarks — so the dashboard's baseline output reflects a
+realistic worst-case, not a best-case. Adjust every slider up or down as
+you get JAC's actual account data.
+
+| Slider | Default | Published benchmark | Why conservative here |
+|---|---:|---|---|
+| Service radius | 15 mi | — | Typical single-crew radius; sweep 5–50 to see the reach curve. |
+| Impression share | **40%** | 60–80% "ideal and realistic" for mature campaigns; new/limited-budget local commonly 30–50% ([StoreYA][is1], [WordStream][is2]) | Assume a launching or moderately-funded campaign, not a mature one. |
+| Click-through rate | **5%** | Home services average **4.8%** in 2025; construction/general contractors **6.25%**; plumbing 3.34% ([LocaliQ 2025 benchmarks][ctr1]) | Roofing sits in the ~5% band — right at the home-services average, not above it. |
+| Conversion rate (click → lead) | **4%** | Roofing & Gutters **3.7%** — one of the lowest CVRs in home services ([LocaliQ][cvr1], [MDM PPC][cvr2]). Roofing requires trust proofs (portfolio, insurance) that lengthen the decision. | Round the industry figure up slightly to 4% — anything higher is optimistic without proven landing pages. |
+| Position strategy | Smart 3–4 | Position #1 on head terms costs ~3-4× the low-top-of-page bid | Playing at 3–4 keeps CPA sane; toggle to "Own #1" to see how much more you'd pay per lead. |
+
+**Note on booked-job math:** the earlier version of the dashboard converted
+cost-per-lead into cost-per-booked-job via a booking-rate assumption. That
+was one guess too many stacked on top of another; we now stop at
+**cost per lead**. Sales close rate is a JAC-side operational metric —
+apply it in the sales conversation, not baked into the media plan.
 
 Replace defaults with account actuals as soon as you have them; every slider
 is live-wired to every metric.
+
+[is1]: https://www.storeya.com/ppc/GuideGoogleAdWordsImpressionShare
+[is2]: https://www.wordstream.com/blog/ws/2023/06/07/impression-share
+[ctr1]: https://localiq.com/blog/home-services-search-advertising-benchmarks/
+[cvr1]: https://localiq.com/blog/home-services-search-advertising-benchmarks/
+[cvr2]: https://mdmppc.com/google-ads-benchmarks/roofing/
 
 ## Files
 

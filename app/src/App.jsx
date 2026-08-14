@@ -19,13 +19,13 @@ export default function App() {
   const [err, setErr] = useState(null);
   const [metroKey, setMetroKey] = useState("orlando");
 
-  // Assumption sliders
+  // Assumption sliders — conservative defaults sourced from published 2025-26
+  // roofing / home-services benchmarks (see README "Assumption defaults" table).
   const [radius, setRadius] = useState(15);
-  const [impressionShare, setImpressionShare] = useState(65);
-  const [ctr, setCtr] = useState(13);
-  const [cvr, setCvr] = useState(13);
-  const [bookingRate, setBookingRate] = useState(60);
-  const [position, setPosition] = useState("smart"); // 'top' | 'smart'
+  const [impressionShare, setImpressionShare] = useState(40);   // achievable early; 60-80% is aspirational
+  const [ctr, setCtr] = useState(5);                             // home services avg 4.8%, contractors ~6%
+  const [cvr, setCvr] = useState(4);                             // roofing landing-page → lead ≈ 3.7% (WordStream/LocaliQ)
+  const [position, setPosition] = useState("smart");             // 'top' | 'smart'
   const [budgetMin, budgetMax] = [250, 500];
 
   useEffect(() => {
@@ -72,7 +72,6 @@ export default function App() {
             radius={radius}
             impressionShare={impressionShare}
             ctr={ctr} cvr={cvr}
-            bookingRate={bookingRate}
             position={position}
             budgetMin={budgetMin} budgetMax={budgetMax}
           />
@@ -102,9 +101,7 @@ export default function App() {
           <SliderRow label="Click-through rate" val={`${ctr}%`}
             min={4} max={25} step={1} value={ctr} onChange={setCtr} />
           <SliderRow label="Conversion rate (click → lead)" val={`${cvr}%`}
-            min={8} max={20} step={1} value={cvr} onChange={setCvr} />
-          <SliderRow label="Booking rate (lead → job)" val={`${bookingRate}%`}
-            min={40} max={80} step={1} value={bookingRate} onChange={setBookingRate} />
+            min={2} max={20} step={1} value={cvr} onChange={setCvr} />
 
           <p className="footnote">
             Volumes and CPCs pulled from Google Ads via DataForSEO on {new Date(data.generated_at).toLocaleDateString()};
@@ -170,16 +167,16 @@ function MetroMap({ metro, radius }) {
   );
 }
 
-function MetricsPanel({ metro, radius, impressionShare, ctr, cvr, bookingRate, position, budgetMin, budgetMax }) {
-  const m = useMemo(() => computeMetrics({ metro, radius, impressionShare, ctr, cvr, bookingRate, position }), [
-    metro, radius, impressionShare, ctr, cvr, bookingRate, position
+function MetricsPanel({ metro, radius, impressionShare, ctr, cvr, position, budgetMin, budgetMax }) {
+  const m = useMemo(() => computeMetrics({ metro, radius, impressionShare, ctr, cvr, position }), [
+    metro, radius, impressionShare, ctr, cvr, position
   ]);
   const other = position === "top"
-    ? computeMetrics({ metro, radius, impressionShare, ctr, cvr, bookingRate, position: "smart" })
-    : computeMetrics({ metro, radius, impressionShare, ctr, cvr, bookingRate, position: "top" });
+    ? computeMetrics({ metro, radius, impressionShare, ctr, cvr, position: "smart" })
+    : computeMetrics({ metro, radius, impressionShare, ctr, cvr, position: "top" });
 
-  const perBookedDelta = (other.costPerBooked != null && m.costPerBooked != null)
-    ? other.costPerBooked - m.costPerBooked : null;
+  const perLeadDelta = (other.costPerLead != null && m.costPerLead != null)
+    ? other.costPerLead - m.costPerLead : null;
 
   const leadsPerDay = m.leadsPerDay;
   const heroClass = leadsPerDay == null ? "warn"
@@ -225,16 +222,11 @@ function MetricsPanel({ metro, radius, impressionShare, ctr, cvr, bookingRate, p
         <div className="label">Cost per lead (CPA)</div>
         <div className="value">{money(m.costPerLead)}
           <span className="unit"> = CPC ÷ {cvr}% CVR</span></div>
-      </div>
-      <div className="metric">
-        <div className="label">Cost per booked job</div>
-        <div className="value">{money(m.costPerBooked)}
-          <span className="unit"> = CPA ÷ {bookingRate}% booking rate</span></div>
-        {perBookedDelta != null && Math.abs(perBookedDelta) >= 1 &&
+        {perLeadDelta != null && Math.abs(perLeadDelta) >= 1 &&
           <div className="note">
             {position === "top"
-              ? <>Owning #1 adds <span className="delta">+{money(-perBookedDelta)}</span> per booked job vs position 3–4.</>
-              : <>Owning #1 would add <span className="delta">+{money(perBookedDelta)}</span> per booked job.</>}
+              ? <>Owning #1 adds <span className="delta">+{money(-perLeadDelta)}</span> per lead vs position 3–4.</>
+              : <>Owning #1 would add <span className="delta">+{money(perLeadDelta)}</span> per lead.</>}
           </div>}
       </div>
 
@@ -252,7 +244,7 @@ function MetricsPanel({ metro, radius, impressionShare, ctr, cvr, bookingRate, p
 
 /* ---------- pure metric math ---------- */
 
-function computeMetrics({ metro, radius, impressionShare, ctr, cvr, bookingRate, position }) {
+function computeMetrics({ metro, radius, impressionShare, ctr, cvr, position }) {
   const inRadius = (metro.cities || []).filter(c => (c.distanceMiles ?? 999) <= radius);
   const coreVolume = inRadius.reduce((a, c) => a + (c.coreVolume || 0), 0);
   const estimatedVolume = inRadius.reduce((a, c) => a + (c.estimatedTotalVolume || 0), 0);
@@ -267,7 +259,6 @@ function computeMetrics({ metro, radius, impressionShare, ctr, cvr, bookingRate,
   const leadsMonth = capturableClicks * (cvr / 100);
   const leadsPerDay = leadsMonth / 30.4;
   const costPerLead = blendedCPC != null ? blendedCPC / (cvr / 100) : null;
-  const costPerBooked = costPerLead != null ? costPerLead / (bookingRate / 100) : null;
 
   // Seasonal high/low from average of in-radius cities' indices.
   const monthAvgs = Array(12).fill(0);
@@ -289,7 +280,7 @@ function computeMetrics({ metro, radius, impressionShare, ctr, cvr, bookingRate,
     coreVolume, estimatedVolume,
     blendedCPC, capturableClicks,
     leadsMonth, leadsPerDay,
-    costPerLead, costPerBooked,
+    costPerLead,
     seasonalHigh, seasonalLow, seasonalHighMonth, seasonalLowMonth,
   };
 }
