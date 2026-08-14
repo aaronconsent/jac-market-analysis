@@ -12,6 +12,11 @@
   "$schema": "https://unpkg.com/wrangler/config-schema.json",
   "name": "jac-market-analysis",
   "compatibility_date": "2026-08-14",
+  // Wrangler runs this before `deploy` (Cloudflare's connected-git flow
+  // invokes `npx wrangler deploy`, so this hook is what actually builds).
+  "build": {
+    "command": "npm install --no-audit --no-fund && cd app && npm install --no-audit --no-fund && npm run build"
+  },
   "assets": {
     "directory": "./app/dist",
     "not_found_handling": "single-page-application"
