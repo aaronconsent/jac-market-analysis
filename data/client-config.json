@@ -1,0 +1,22 @@
+{
+  "client": {
+    "id": "jac",
+    "name": "JAC Builders",
+    "trade": "Roofing",
+    "gbp_search_terms": [
+      "JAC Builders roofing",
+      "JAC Builders"
+    ],
+    "metros": ["orlando", "tampa"]
+  },
+  "money_query_templates": [
+    "{trade} contractor {city}",
+    "roof repair {city}",
+    "roofer near me",
+    "{trade} {city}"
+  ],
+  "money_query_primary_city": {
+    "orlando": "Orlando",
+    "tampa": "Tampa"
+  }
+}

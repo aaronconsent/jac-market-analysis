@@ -8,7 +8,9 @@
     "collect": "node collect.js",
     "collect:fresh": "node collect.js --fresh",
     "process": "node process.js",
-    "pipeline": "npm run collect && npm run process",
+    "collect-lsa": "node collect-lsa.js",
+    "collect-lsa:fresh": "node collect-lsa.js --fresh",
+    "pipeline": "npm run collect && npm run process && npm run collect-lsa",
     "dev": "cd app && npm run dev",
     "build": "cd app && npm install --no-audit --no-fund && npm run build",
     "preview": "cd app && npm run preview"

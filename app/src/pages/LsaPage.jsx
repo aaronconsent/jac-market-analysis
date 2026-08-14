@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 /**
  * LSA Lead Diagnostic — interactive translation of the lsa-lead-diagnostic
@@ -78,10 +78,59 @@ export default function LsaPage() {
     accountAgeMonths: "",
     everGeneratedLeads: "yes",
   });
-
   const patch = k => v => setIntake(s => ({ ...s, [k]: v }));
 
+  // Auto-populate from data/lsa-data.json when available. User can still edit
+  // any field; the "auto" tag next to a field disappears once it's been edited.
+  const [autoData, setAutoData] = useState(null);
+  const [autoMetro, setAutoMetro] = useState("tampa");   // toggle which metro's auto data to use
+  const [dirty, setDirty] = useState({});               // fields the user has touched
+
+  useEffect(() => {
+    // Vite's SPA fallback returns index.html (200 OK) for missing static files,
+    // so guard on JSON content-type — don't try to parse HTML as auto-data.
+    fetch("/lsa-data.json").then(async r => {
+      if (!r.ok) return null;
+      const ct = r.headers.get("content-type") || "";
+      if (!ct.includes("json")) return null;
+      return r.json();
+    }).then(setAutoData).catch(() => setAutoData(null));
+  }, []);
+
+  useEffect(() => {
+    if (!autoData) return;
+    const clientMetro = autoData.client?.metros?.[autoMetro] || null;
+    const queries = autoData.money_queries_by_metro?.[autoMetro] || null;
+    const auto = {
+      business: autoData.client?.name || "",
+      trade: autoData.client?.trade || "Roofing",
+      serviceAreas: queries?.primary_city ? `${queries.primary_city}, Florida (+ neighbors, see Market Analysis)` : "",
+      marketSize: "large",
+      reviewCount: clientMetro?.review_count != null ? String(clientMetro.review_count) : "",
+      reviewRating: clientMetro?.rating != null ? String(clientMetro.rating) : "",
+      top3ReviewMedian: queries?.review_moat_median != null ? String(queries.review_moat_median) : "",
+    };
+    setIntake(prev => {
+      const next = { ...prev };
+      Object.entries(auto).forEach(([k, v]) => {
+        if (!dirty[k] && v !== "" && v != null) next[k] = v;
+      });
+      return next;
+    });
+  }, [autoData, autoMetro]);
+
+  // wrap patch to mark field dirty
+  const setField = k => v => { setDirty(d => ({ ...d, [k]: true })); patch(k)(v); };
+
   const diagnosis = useMemo(() => diagnose(intake), [intake]);
+
+  const MANUAL = ["platform","verified","running","everGeneratedLeads","impressions30d","accountAgeMonths"];
+  const AUTOABLE = ["business","trade","serviceAreas","marketSize","reviewCount","reviewRating","top3ReviewMedian"];
+  const tagFor = name => {
+    if (MANUAL.includes(name)) return "manual";
+    if (autoData && AUTOABLE.includes(name) && !dirty[name]) return "auto";
+    return undefined;
+  };
 
   return (
     <div className="lsa-page">
@@ -89,48 +138,60 @@ export default function LsaPage() {
         <div className="sub">
           Diagnose an underperforming LSA / Google Verified account and generate a client-ready action plan.
           Fill in what you know — the diagnosis, checklist, and CPL band update live. Export as markdown when done.
-          Based on the <a href="/references/lsa-diagnostic-skill.md" rel="noopener">LSA Lead Diagnostic skill</a>.
         </div>
+        {autoData && (
+          <div className="lsa-auto-bar">
+            <b>Auto-loaded for {autoData.client?.name}.</b> Metro:
+            <div className="metro-toggle" role="tablist" style={{ marginLeft: 8 }}>
+              {Object.keys(autoData.client?.metros || {}).map(k => (
+                <button key={k}
+                  className={k === autoMetro ? "active" : ""}
+                  onClick={() => { setAutoMetro(k); setDirty({}); }}>{k[0].toUpperCase() + k.slice(1)}</button>
+              ))}
+            </div>
+            <span className="lsa-auto-note">Client name, trade, service city, review count, rating, and top-3 review moat are pulled from DataForSEO. Fields you edit stop auto-syncing. Non-automatable fields (impressions, verified status, ad status, account age) still need JAC's LSA login.</span>
+          </div>
+        )}
       </div>
 
       <div className="lsa-grid">
         <section className="lsa-form">
           <h3>Intake</h3>
 
-          <Field label="Client / business name">
-            <input type="text" value={intake.business} onChange={e => patch("business")(e.target.value)}
+          <Field label="Client / business name" tag={tagFor("business")}>
+            <input type="text" value={intake.business} onChange={e => setField("business")(e.target.value)}
               placeholder="e.g. JAC Builders" />
           </Field>
           <Row>
-            <Field label="Trade">
-              <select value={intake.trade} onChange={e => patch("trade")(e.target.value)}>
+            <Field label="Trade" tag={tagFor("trade")}>
+              <select value={intake.trade} onChange={e => setField("trade")(e.target.value)}>
                 {Object.keys(TRADES).map(t => <option key={t} value={t}>{t}</option>)}
               </select>
             </Field>
-            <Field label="Market size">
-              <select value={intake.marketSize} onChange={e => patch("marketSize")(e.target.value)}>
+            <Field label="Market size" tag={tagFor("marketSize")}>
+              <select value={intake.marketSize} onChange={e => setField("marketSize")(e.target.value)}>
                 <option value="small">Small city / single town</option>
                 <option value="midsize">Mid-size metro</option>
                 <option value="large">Saturated major metro</option>
               </select>
             </Field>
           </Row>
-          <Field label="Service areas (cities / zips / counties)">
-            <textarea rows={2} value={intake.serviceAreas} onChange={e => patch("serviceAreas")(e.target.value)}
+          <Field label="Service areas (cities / zips / counties)" tag={tagFor("serviceAreas")}>
+            <textarea rows={2} value={intake.serviceAreas} onChange={e => setField("serviceAreas")(e.target.value)}
               placeholder="e.g. Tampa, St Petersburg, Clearwater, Brandon, 33601, 33602…" />
           </Field>
 
           <h4>Account state</h4>
           <Row>
-            <Field label="Platform">
-              <select value={intake.platform} onChange={e => patch("platform")(e.target.value)}>
+            <Field label="Platform" tag={tagFor("platform")}>
+              <select value={intake.platform} onChange={e => setField("platform")(e.target.value)}>
                 <option value="legacy">Legacy LSA dashboard</option>
                 <option value="migrated">Migrated to Google Ads (PMax pay-per-lead)</option>
                 <option value="unsure">Unsure — check if ads.google.com/localservices redirects</option>
               </select>
             </Field>
-            <Field label="Verified / badge">
-              <select value={intake.verified} onChange={e => patch("verified")(e.target.value)}>
+            <Field label="Verified / badge" tag={tagFor("verified")}>
+              <select value={intake.verified} onChange={e => setField("verified")(e.target.value)}>
                 <option value="yes">Active</option>
                 <option value="pending">Pending / re-review</option>
                 <option value="no">Not verified / dropped</option>
@@ -138,15 +199,15 @@ export default function LsaPage() {
             </Field>
           </Row>
           <Row>
-            <Field label="Ad status">
-              <select value={intake.running} onChange={e => patch("running")(e.target.value)}>
+            <Field label="Ad status" tag={tagFor("running")}>
+              <select value={intake.running} onChange={e => setField("running")(e.target.value)}>
                 <option value="yes">Running</option>
                 <option value="paused">Paused</option>
                 <option value="limited">Limited serving flag</option>
               </select>
             </Field>
-            <Field label="Ever generated leads?">
-              <select value={intake.everGeneratedLeads} onChange={e => patch("everGeneratedLeads")(e.target.value)}>
+            <Field label="Ever generated leads?" tag={tagFor("everGeneratedLeads")}>
+              <select value={intake.everGeneratedLeads} onChange={e => setField("everGeneratedLeads")(e.target.value)}>
                 <option value="yes">Yes, in the past</option>
                 <option value="no">Never</option>
               </select>
@@ -155,29 +216,29 @@ export default function LsaPage() {
 
           <h4>Key numbers (last 30 days)</h4>
           <Row>
-            <Field label="Impressions (30d)">
+            <Field label="Impressions (30d)" tag={tagFor("impressions30d")}>
               <input type="number" min={0} value={intake.impressions30d}
-                onChange={e => patch("impressions30d")(e.target.value)} placeholder="0 = serving problem" />
+                onChange={e => setField("impressions30d")(e.target.value)} placeholder="0 = serving problem" />
             </Field>
-            <Field label="Account age (months)">
+            <Field label="Account age (months)" tag={tagFor("accountAgeMonths")}>
               <input type="number" min={0} value={intake.accountAgeMonths}
-                onChange={e => patch("accountAgeMonths")(e.target.value)} placeholder="e.g. 4" />
+                onChange={e => setField("accountAgeMonths")(e.target.value)} placeholder="e.g. 4" />
             </Field>
           </Row>
 
           <h4>Reviews (Google Business Profile)</h4>
           <Row>
-            <Field label="Review count">
+            <Field label="Review count" tag={tagFor("reviewCount")}>
               <input type="number" min={0} value={intake.reviewCount}
-                onChange={e => patch("reviewCount")(e.target.value)} placeholder="e.g. 12" />
+                onChange={e => setField("reviewCount")(e.target.value)} placeholder="e.g. 12" />
             </Field>
-            <Field label="Rating (avg)">
+            <Field label="Rating (avg)" tag={tagFor("reviewRating")}>
               <input type="number" min={0} max={5} step={0.1} value={intake.reviewRating}
-                onChange={e => patch("reviewRating")(e.target.value)} placeholder="e.g. 4.8" />
+                onChange={e => setField("reviewRating")(e.target.value)} placeholder="e.g. 4.8" />
             </Field>
-            <Field label="Top-3 competitor review median">
+            <Field label="Top-3 competitor review median" tag={tagFor("top3ReviewMedian")}>
               <input type="number" min={0} value={intake.top3ReviewMedian}
-                onChange={e => patch("top3ReviewMedian")(e.target.value)} placeholder="e.g. 120" />
+                onChange={e => setField("top3ReviewMedian")(e.target.value)} placeholder="e.g. 120" />
             </Field>
           </Row>
 
@@ -189,9 +250,10 @@ export default function LsaPage() {
 
         <section className="lsa-output">
           <DiagnosisBlock intake={intake} diagnosis={diagnosis} />
+          {autoData && <CompetitorSnapshot autoData={autoData} metroKey={autoMetro} />}
           <ChecklistBlock intake={intake} diagnosis={diagnosis} />
           <MigrationBlock />
-          <FootnoteBlock diagnosis={diagnosis} />
+          <FootnoteBlock diagnosis={diagnosis} autoData={autoData} />
         </section>
       </div>
     </div>
@@ -329,7 +391,43 @@ function MigrationBlock() {
   );
 }
 
-function FootnoteBlock({ diagnosis }) {
+function CompetitorSnapshot({ autoData, metroKey }) {
+  const q = autoData.money_queries_by_metro?.[metroKey];
+  if (!q) return null;
+  return (
+    <div className="lsa-block">
+      <div className="lsa-h">Competitor snapshot · {metroKey[0].toUpperCase() + metroKey.slice(1)}</div>
+      <div className="lsa-sub">
+        Top-3 local pack for the money queries in <b>{q.primary_city}</b>.
+        Median review count across queries: <b>{q.review_moat_median ?? "—"}</b>
+        {" · "}unique competitors seen: <b>{q.unique_competitor_count ?? "—"}</b>
+      </div>
+      {q.queries.map(qq => (
+        <div key={qq.query} className="lsa-comp-query">
+          <div className="lsa-comp-query-title">"{qq.query}"</div>
+          <table className="lsa-comp-table">
+            <thead>
+              <tr><th>#</th><th>Business</th><th style={{textAlign:"right"}}>Reviews</th><th style={{textAlign:"right"}}>Rating</th></tr>
+            </thead>
+            <tbody>
+              {qq.top3.length === 0 && <tr><td colSpan={4} className="lsa-comp-empty">No local pack returned.</td></tr>}
+              {qq.top3.map(row => (
+                <tr key={row.rank}>
+                  <td>{row.rank}</td>
+                  <td>{row.name || "—"}</td>
+                  <td style={{textAlign:"right"}}>{row.review_count ?? "—"}</td>
+                  <td style={{textAlign:"right"}}>{row.rating ?? "—"}★</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function FootnoteBlock({ diagnosis, autoData }) {
   return (
     <div className="lsa-footnote">
       Diagnostic logic follows the LSA Lead Diagnostic skill (2026-08). CPL bands are directional
@@ -337,16 +435,21 @@ function FootnoteBlock({ diagnosis }) {
       order: <b>responsiveness → reviews (count × velocity × rating) → proximity → profile
       completeness → lead history → bid/budget</b>. Timeline framing must be honest: nobody promises
       top-3 in 30 days in a saturated market.
+      {autoData && <> Auto-pulled data (client GBP + competitor local pack) fetched from Google via DataForSEO on {new Date(autoData.generated_at).toLocaleDateString()}; run <code>npm run collect-lsa:fresh</code> to refresh.</>}
     </div>
   );
 }
 
 /* ---------- helpers ---------- */
 
-function Field({ label, children }) {
+function Field({ label, children, tag }) {
   return (
     <label className="lsa-field">
-      <span>{label}</span>
+      <span>
+        {label}
+        {tag === "auto" && <em className="lsa-tag lsa-tag-auto">auto</em>}
+        {tag === "manual" && <em className="lsa-tag lsa-tag-manual">needs LSA login</em>}
+      </span>
       {children}
     </label>
   );

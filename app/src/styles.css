@@ -141,3 +141,28 @@ body { background: var(--bg); color: var(--ink); font-size: 14px; }
 .lsa-phase-title { font-size: 13px; font-weight: 700; color: var(--accent); }
 
 .lsa-footnote { color: var(--muted); font-size: 11px; line-height: 1.5; padding: 12px 4px 0; }
+.lsa-footnote code { background: #efeff2; padding: 1px 5px; border-radius: 3px; }
+
+/* auto-load bar at top of LSA page */
+.lsa-auto-bar {
+  margin-top: 10px; padding: 10px 14px; border: 1px solid #cfe0ef; background: #eff6fb;
+  border-radius: 8px; font-size: 12px; color: var(--ink-2); display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
+}
+.lsa-auto-bar b { color: var(--ink); }
+.lsa-auto-bar .metro-toggle button { padding: 4px 10px; font-size: 12px; }
+.lsa-auto-bar .metro-toggle button.active { background: var(--accent); color: #fff; }
+.lsa-auto-note { flex-basis: 100%; color: var(--muted); font-style: italic; font-size: 11px; margin-top: 2px; }
+
+/* field tags */
+.lsa-tag { display: inline-block; font-size: 9px; text-transform: uppercase; letter-spacing: .05em;
+  font-style: normal; font-weight: 700; padding: 2px 6px; border-radius: 3px; margin-left: 6px; vertical-align: middle; }
+.lsa-tag-auto { background: #dcefe4; color: var(--good); }
+.lsa-tag-manual { background: #fbe5e7; color: var(--bad); }
+
+/* competitor snapshot */
+.lsa-comp-query { margin-top: 12px; }
+.lsa-comp-query-title { font-size: 12px; font-weight: 600; color: var(--ink-2); margin-bottom: 4px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.lsa-comp-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.lsa-comp-table th, .lsa-comp-table td { padding: 5px 8px; border-bottom: 1px solid var(--border); }
+.lsa-comp-table th { text-align: left; font-weight: 600; color: var(--muted); text-transform: uppercase; font-size: 10px; letter-spacing: .04em; }
+.lsa-comp-empty { color: var(--muted); font-style: italic; text-align: center; }
