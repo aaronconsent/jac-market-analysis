@@ -1,0 +1,332 @@
+{
+  "generated_at": "2026-08-14T14:56:55.153Z",
+  "client": {
+    "id": "jac",
+    "name": "JAC Builders",
+    "trade": "Roofing",
+    "metros": {
+      "orlando": {
+        "resolved_name": "JAC Builders of Orlando",
+        "rating": 5,
+        "review_count": 145,
+        "place_id": "ChIJHUwWE11754gR8tXNjQepHl4",
+        "cid": "6782043938775487986",
+        "address": "1218 Mt Vernon St, Orlando, FL 32803",
+        "domain": "www.jacbuildersfl.com",
+        "is_claimed": true
+      },
+      "tampa": {
+        "resolved_name": "JAC Builders, INC.",
+        "rating": 4.9,
+        "review_count": 285,
+        "place_id": "ChIJyb7aXNCVwogRHDFgb9RW4OI",
+        "cid": "16348162117756530972",
+        "address": "16921 Gunn Hwy A, Odessa, FL 33556",
+        "domain": "www.jacbuildersfl.com",
+        "is_claimed": true
+      }
+    }
+  },
+  "money_queries_by_metro": {
+    "orlando": {
+      "primary_city": "Orlando",
+      "primary_location_name": "Orlando,Florida,United States",
+      "queries": [
+        {
+          "query": "roofing contractor Orlando",
+          "location_name": "Orlando,Florida,United States",
+          "top3": [
+            {
+              "rank": 1,
+              "name": "Gravity Roofing",
+              "rating": 5,
+              "review_count": 572,
+              "cid": "1644357455148320807",
+              "place_id": null,
+              "url": "https://gravityroof.com/"
+            },
+            {
+              "rank": 2,
+              "name": "New Standard Roofing Orlando",
+              "rating": 5,
+              "review_count": 82,
+              "cid": "741847821929072254",
+              "place_id": null,
+              "url": "https://newstandardroofingorlando.com/"
+            },
+            {
+              "rank": 3,
+              "name": "Thomas Roofing & Repair",
+              "rating": 4.8,
+              "review_count": 613,
+              "cid": "14216729978738729841",
+              "place_id": null,
+              "url": "https://thomasroofingandrepair.com/"
+            }
+          ],
+          "top3_review_median": 572
+        },
+        {
+          "query": "roof repair Orlando",
+          "location_name": "Orlando,Florida,United States",
+          "top3": [
+            {
+              "rank": 1,
+              "name": "Thomas Roofing & Repair",
+              "rating": 4.8,
+              "review_count": 613,
+              "cid": "14216729978738729841",
+              "place_id": null,
+              "url": "https://thomasroofingandrepair.com/"
+            },
+            {
+              "rank": 2,
+              "name": "Gravity Roofing",
+              "rating": 5,
+              "review_count": 572,
+              "cid": "1644357455148320807",
+              "place_id": null,
+              "url": "https://gravityroof.com/"
+            },
+            {
+              "rank": 3,
+              "name": "Honest Abe Roofing Orlando",
+              "rating": 4.9,
+              "review_count": 343,
+              "cid": "3060106983619044800",
+              "place_id": null,
+              "url": "http://www.honestaberoofing.com/orlando-fl"
+            }
+          ],
+          "top3_review_median": 572
+        },
+        {
+          "query": "roofer near me",
+          "location_name": "Orlando,Florida,United States",
+          "top3": [
+            {
+              "rank": 1,
+              "name": "Thomas Roofing & Repair",
+              "rating": 4.8,
+              "review_count": 613,
+              "cid": "14216729978738729841",
+              "place_id": null,
+              "url": "https://thomasroofingandrepair.com/"
+            },
+            {
+              "rank": 2,
+              "name": "Gravity Roofing",
+              "rating": 5,
+              "review_count": 572,
+              "cid": "1644357455148320807",
+              "place_id": null,
+              "url": "https://gravityroof.com/"
+            },
+            {
+              "rank": 3,
+              "name": "Top Builder Roofing LLC",
+              "rating": 5,
+              "review_count": 113,
+              "cid": "12147146634673311328",
+              "place_id": null,
+              "url": "https://www.topbuilderroofing.com/"
+            }
+          ],
+          "top3_review_median": 572
+        },
+        {
+          "query": "roofing Orlando",
+          "location_name": "Orlando,Florida,United States",
+          "top3": [
+            {
+              "rank": 1,
+              "name": "Gravity Roofing",
+              "rating": 5,
+              "review_count": 572,
+              "cid": "1644357455148320807",
+              "place_id": null,
+              "url": "https://gravityroof.com/"
+            },
+            {
+              "rank": 2,
+              "name": "New Standard Roofing Orlando",
+              "rating": 5,
+              "review_count": 82,
+              "cid": "741847821929072254",
+              "place_id": null,
+              "url": "https://newstandardroofingorlando.com/"
+            },
+            {
+              "rank": 3,
+              "name": "Thomas Roofing & Repair",
+              "rating": 4.8,
+              "review_count": 613,
+              "cid": "14216729978738729841",
+              "place_id": null,
+              "url": "https://thomasroofingandrepair.com/"
+            }
+          ],
+          "top3_review_median": 572
+        }
+      ],
+      "review_moat_median": 572,
+      "unique_competitor_count": 5
+    },
+    "tampa": {
+      "primary_city": "Tampa",
+      "primary_location_name": "Tampa,Florida,United States",
+      "queries": [
+        {
+          "query": "roofing contractor Tampa",
+          "location_name": "Tampa,Florida,United States",
+          "top3": [
+            {
+              "rank": 1,
+              "name": "Prime Roof Repair Tampa",
+              "rating": 4.9,
+              "review_count": 134,
+              "cid": "11551618740230102948",
+              "place_id": null,
+              "url": "https://primeroofrepairtampa.com/"
+            },
+            {
+              "rank": 2,
+              "name": "Westfall Roofing",
+              "rating": 4.8,
+              "review_count": 1900,
+              "cid": "16987819093432783196",
+              "place_id": null,
+              "url": "https://www.westfallroofing.com/roofing-contractor-in-tampa-fl/?utm_campaign=gmb"
+            },
+            {
+              "rank": 3,
+              "name": "Stay Dry Roofing of Tampa Bay Inc.",
+              "rating": 4.5,
+              "review_count": 204,
+              "cid": "3197187318935041555",
+              "place_id": null,
+              "url": "https://staydryfl.com/"
+            }
+          ],
+          "top3_review_median": 204
+        },
+        {
+          "query": "roof repair Tampa",
+          "location_name": "Tampa,Florida,United States",
+          "top3": [
+            {
+              "rank": 1,
+              "name": "Prime Roof Repair Tampa",
+              "rating": 4.9,
+              "review_count": 134,
+              "cid": "11551618740230102948",
+              "place_id": null,
+              "url": "https://primeroofrepairtampa.com/"
+            },
+            {
+              "rank": 2,
+              "name": "Tampa Roof Repair LLC",
+              "rating": 4.9,
+              "review_count": 178,
+              "cid": "5667647044759128164",
+              "place_id": null,
+              "url": "http://www.tamparoofrepair.com/"
+            },
+            {
+              "rank": 3,
+              "name": "Red Fox Roofers of Tampa",
+              "rating": 5,
+              "review_count": 63,
+              "cid": "12982392910042385497",
+              "place_id": null,
+              "url": "https://redfoxroofers.com/"
+            }
+          ],
+          "top3_review_median": 134
+        },
+        {
+          "query": "roofer near me",
+          "location_name": "Tampa,Florida,United States",
+          "top3": [
+            {
+              "rank": 1,
+              "name": "Prime Roof Repair Tampa",
+              "rating": 4.9,
+              "review_count": 134,
+              "cid": "11551618740230102948",
+              "place_id": null,
+              "url": "https://primeroofrepairtampa.com/"
+            },
+            {
+              "rank": 2,
+              "name": "Red Fox Roofers of Tampa",
+              "rating": 5,
+              "review_count": 63,
+              "cid": "12982392910042385497",
+              "place_id": null,
+              "url": "https://redfoxroofers.com/"
+            },
+            {
+              "rank": 3,
+              "name": "Native Sons Roofing",
+              "rating": 5,
+              "review_count": 111,
+              "cid": "2219804403530848118",
+              "place_id": null,
+              "url": "https://www.nativesonsroofing.com/"
+            }
+          ],
+          "top3_review_median": 111
+        },
+        {
+          "query": "roofing Tampa",
+          "location_name": "Tampa,Florida,United States",
+          "top3": [
+            {
+              "rank": 1,
+              "name": "Prime Roof Repair Tampa",
+              "rating": 4.9,
+              "review_count": 134,
+              "cid": "11551618740230102948",
+              "place_id": null,
+              "url": "https://primeroofrepairtampa.com/"
+            },
+            {
+              "rank": 2,
+              "name": "Red Fox Roofers of Tampa",
+              "rating": 5,
+              "review_count": 63,
+              "cid": "12982392910042385497",
+              "place_id": null,
+              "url": "https://redfoxroofers.com/"
+            },
+            {
+              "rank": 3,
+              "name": "Stay Dry Roofing of Tampa Bay Inc.",
+              "rating": 4.5,
+              "review_count": 204,
+              "cid": "3197187318935041555",
+              "place_id": null,
+              "url": "https://staydryfl.com/"
+            }
+          ],
+          "top3_review_median": 134
+        }
+      ],
+      "review_moat_median": 134,
+      "unique_competitor_count": 6
+    }
+  },
+  "non_automatable": {
+    "fields": [
+      "platform_status",
+      "verified_badge_status",
+      "ad_running_status",
+      "impressions_30d",
+      "account_age_months",
+      "ever_generated_leads"
+    ],
+    "reason": "These live in the LSA / Google Ads account UI and require the client's login. Not exposed via DataForSEO."
+  },
+  "total_cost_usd": 0.0388
+}
